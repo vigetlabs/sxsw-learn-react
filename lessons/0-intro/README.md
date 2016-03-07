@@ -28,8 +28,8 @@ Additionally, there are some fantastic resources on JavaScript:
 
 ## A Brief Tour
 
-Open up `lessons/0-intro/index.html`, or fill out the following html
-document:
+Create an HTML document. It can be called whatever you would
+like. Fill it with the following code:
 
 ```html
 <!DOCTYPE html>
