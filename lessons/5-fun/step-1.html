@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Learning React</title>
+    <link rel="stylesheet" href="lib/style.css" />
+  </head>
+  <body>
+    <div id="entry-point"></div>
+
+    <script src="lib/react.js"></script>
+    <script src="lib/react-dom.js"></script>
+    <script src="lib/babel.js"></script>
+
+    <script type="text/babel">
+      function Recursion ({ n }) {
+        var link = "#level-" + n
+
+        return (
+          <g id={ "level-" + (n + 1) }>
+            <use xlinkHref={ link } transform="matrix(0.5 0 0 0.5  0  0)" />
+            <use xlinkHref={ link } transform="matrix(0.5 0 0 0.5  1  0)" />
+            <use xlinkHref={ link } transform="matrix(0.5 0 0 0.5 0.5 0.866)" />
+          </g>
+        )
+      }
+
+      function Triangle ({ id, fill }) {
+        return <path id={ id } fill={ fill } d="M0 0,2 0,1 1.732 z" />
+      }
+
+      function Pascal ({ depth=1, fill="#039", width=window.innerWidth, height=window.innerHeight }) {
+        let scale = Math.min(width, height) / 2
+
+        return (
+          <svg width={ width } height={ height }>
+            <defs>
+              <Triangle id="level-0" fill={ fill } />
+              { Array(depth).fill().map((_, n) => <Recursion key={ n } n={ n } />) }
+            </defs>
+            <use xlinkHref={ "#level-" + depth } transform={ `scale(${ scale })` } />
+          </svg>
+          )
+        }
+
+        ReactDOM.render(<Pascal />, document.getElementById('entry-point'))
+    </script>
+  </body>
+</html>

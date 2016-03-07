@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Learning React</title>
+    <link rel="stylesheet" href="lib/style.css" />
+  </head>
+  <body>
+    <div id="entry-point"></div>
+
+    <script src="lib/react.js"></script>
+    <script src="lib/react-dom.js"></script>
+
+    <script type="text/javascript">
+      var notes = [
+        { id: 1, content: 'Learn React' },
+        { id: 2, content: 'Get Lunch' },
+        { id: 3, content: 'Learn React Native' }
+      ]
+
+      var notesListItems = notes.map(function (note) {
+        return React.createElement('li', { key: note.id }, note.content)
+      })
+
+      var notesList = React.createElement('section', {},
+        React.createElement('h1', {}, 'You have ', notes.length, ' notes'),
+        React.createElement('ul', {}, notesListItems)
+      )
+
+      ReactDOM.render(notesList, document.getElementById('entry-point'))
+    </script>
+  </body>
+</html>

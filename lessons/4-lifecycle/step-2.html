@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Learning React</title>
+    <link rel="stylesheet" href="lib/style.css" />
+  </head>
+  <body>
+    <div id="entry-point"></div>
+
+    <script src="lib/react.js"></script>
+    <script src="lib/react-dom.js"></script>
+    <script src="lib/babel.js"></script>
+
+    <script type="text/babel">
+      var Note = React.createClass({
+        render() {
+          return <li>{ this.props.content }</li>
+        }
+      })
+
+      var NotesList = React.createClass({
+        renderNote(note) {
+          return <Note key={ note.id } content={ note.content } />
+        },
+        render() {
+          return <ul>{ this.props.notes.map(this.renderNote) }</ul>
+        }
+      })
+
+      var App = React.createClass({
+        getInitialState() {
+          return {
+            notes: JSON.parse(localStorage.getItem('notes')) || []
+          }
+        },
+
+        componentDidUpdate() {
+          localStorage.setItem('notes', JSON.stringify(this.state.notes))
+        },
+
+        render() {
+          return (
+            <section>
+              <h1>You have { this.state.notes.length } notes</h1>
+              <NotesList notes={ this.state.notes } />
+              <form ref="form" onSubmit={ this.formWasSubmitted }>
+                <input ref="content" required />
+              </form>
+            </section>
+          )
+        },
+        formWasSubmitted(event) {
+          event.preventDefault()
+
+          var note = {
+            id: this.state.notes.length,
+            content: this.refs.content.value
+          }
+
+          this.setState({
+            notes: this.state.notes.concat(note)
+          })
+
+          this.refs.form.reset()
+        }
+      })
+
+      ReactDOM.render(<App />, document.getElementById('entry-point'))
+    </script>
+  </body>
+</html>
