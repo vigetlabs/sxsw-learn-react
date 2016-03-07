@@ -16,8 +16,17 @@ We'll work with the same HTML structure as last time:
   <body>
     <div id="entry-point"></div>
 
-    <script src="https://cdn.jsdelivr.net/react/0.14.7/react.js"></script>
-    <script src="https://cdn.jsdelivr.net/react/0.14.7/react-dom.js"></script>
+    <!-- Wifi might be spotty, so we've downloaded these to `./lib` -->
+    <script src="lib/react.js"></script>
+    <script src="lib/react-dom.js"></script>
+
+    <!-- Alternatively: -->
+    <!--<script src="https://fb.me/react-0.14.7.min.js"
+                integrity="sha384-zTm/dblzLXQNp3CgY+hfaC/WJ6h4XtNrePh2CW2+rO9GPuNiPb9jmthvAL+oI/dQ"
+                crossorigin="anonymous"></script> -->
+    <!--<script src="https://fb.me/react-dom-0.14.7.min.js"
+                integrity="sha384-ntqCsHbLdMxT352UbhPbT7fqjE8xi4jLmQYQa8mYR+ylAapbXRfdsDweueDObf7m"
+                crossorigin="anonymous"></script> -->
 
     <script>
       console.log('Hello world!')
