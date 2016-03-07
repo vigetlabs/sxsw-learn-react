@@ -1,0 +1,401 @@
+<style>body {
+  box-shadow: inset 0 3px 0 0 #242331;
+  color: #333;
+  font-family: "Roboto Draft", "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  margin: 0;
+  padding-bottom: 40px;
+  padding-top: 24px
+}
+
+/* body:before { */
+/*   position: absolute; */
+/*   content: ""; */
+/*   background-size: 4px 4px; */
+/*   background-image: linear-gradient(0deg, transparent, red 1px, transparent 1px, transparent 4px), linear-gradient(90deg, transparent, red 1px, transparent 1px, transparent 4px); */
+/*   left: 0; */
+/*   right: 0; */
+/*   top: 0; */
+/*   height: 99999px; */
+/*   z-index: 100000; */
+/*   mix-blend-mode: difference; */
+/*   pointer-events: none; */
+/* } */
+
+p, div, section, main, ul, ol, dl, h1, h2, h3, h4, h5, h6, pre code, blockquote {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 510px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+h1, h2, h3 {
+  -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #242331;
+}
+
+ol, ul {
+  line-height: 28px;
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+li {
+  display: flex;
+  list-style: none;
+}
+
+li:before {
+  display: inline-block;
+  margin-left: -16px;
+  opacity: 0.54;
+  text-align: right;
+  padding-right: 12px;
+  padding-left: 12px;
+  width: 16px;
+}
+
+ul > li:before {
+  content: "•";
+}
+
+ol {
+  counter-reset: ordered
+}
+
+ol > li:before {
+  content: counter(ordered) ".";
+  counter-increment: ordered;
+}
+
+li p:first-child {
+  margin-top: 0;
+}
+
+li p {
+  padding: 0 0 16px;
+}
+
+h1 {
+  font-size: 34px;
+  font-weight: 500;
+  line-height: 48px;
+  margin: 32px auto 56px;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 44px;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+h3 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 44px;
+  margin-top: 24px;
+}
+
+h4 {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 32px;
+}
+
+h5, h6 {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 32px;
+}
+
+p {
+  line-height: 28px;
+  margin: 0 auto;
+  padding: 12px 16px 24px;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+p + p {
+  padding-top: 0;
+}
+
+code {
+  color: #c7254e;
+  font-size: 12px;
+  padding: 2px;
+  background-color: #f9f2f4;
+}
+
+pre {
+  background: #242331;
+  padding: 38px 16px;
+  line-height: 24px;
+  margin: 20px 0 36px;
+  overflow: auto;
+}
+
+pre code {
+  background: transparent;
+  color: #ECECF6;
+  border-radius: 0;
+  font-size: 100%;
+  font-family: 'Inconsolata', "Lucida Console", Monaco, monospace;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  transition: 0.3s all;
+}
+
+a:hover,
+a:focus {
+  color: #44f;
+  transition: 0.1s all;
+}
+
+blockquote {
+  border-left: 8px solid #ccc;
+  margin: 40px auto;
+  quotes: "\201C""\201D""\2018""\2019";
+  font-style: italic;
+  font-family: 'Georgia', serif;
+  font-size: 110%;
+  color: #666;
+  padding: 8px 0 1px 12px;
+}
+
+hr {
+  border: 0;
+  border-bottom: 1px dotted #ccc;
+  margin: 48px 0;
+}
+
+/**
+ * Tomorrow Night Theme
+ * http://jmblog.github.com/color-themes-for-google-code-highlightjs
+ * Original theme - https://github.com/chriskempson/tomorrow-theme
+ * http://jmblog.github.com/color-themes-for-google-code-highlightjs
+ */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+  color: #969896;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+  color: #cc6666;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+  color: #de935f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+  color: #f0c674;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+  color: #b5bd68;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+  color: #81a2be;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+  color: #b294bb;
+}
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  background: #1d1f21;
+  color: #c5c8c6;
+  padding: 0.5em;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+</style><h1 id="cleaning-things-up">Cleaning things up</h1>
+<p>This lesson is an intermediary step between the first and last
+portions of the notes app.</p>
+<p>In the last lesson, we made a simple React Component tree that
+rendered a list of information:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> notes = [
+  { id: <span class="hljs-number">1</span>, content: <span class="hljs-string">'Learn React'</span> },
+  { id: <span class="hljs-number">2</span>, content: <span class="hljs-string">'Get Lunch'</span> },
+  { id: <span class="hljs-number">3</span>, content: <span class="hljs-string">'Learn React Native'</span> }
+]
+
+<span class="hljs-keyword">var</span> Note = React.createClass({
+  render() {
+    <span class="hljs-keyword">return</span> React.createElement(<span class="hljs-string">'li'</span>, {}, <span class="hljs-keyword">this</span>.props.content)
+  }
+})
+
+<span class="hljs-keyword">var</span> NotesList = React.createClass({
+  renderNote(note) {
+    <span class="hljs-keyword">return</span> React.createElement(Note, { key: note.id, content: note.content })
+  },
+  render() {
+    <span class="hljs-keyword">return</span> React.createElement(<span class="hljs-string">'ul'</span>, {}, <span class="hljs-keyword">this</span>.props.notes.map(<span class="hljs-keyword">this</span>.renderNote))
+  }
+})
+
+<span class="hljs-keyword">var</span> App = React.createClass({
+  render() {
+    <span class="hljs-keyword">var</span> notes = <span class="hljs-keyword">this</span>.props.notes
+
+    <span class="hljs-keyword">return</span> React.createElement(<span class="hljs-string">'section'</span>, {},
+      React.createElement(<span class="hljs-string">'h1'</span>, {}, <span class="hljs-string">'You have '</span>, notes.length, <span class="hljs-string">' notes'</span>),
+      React.createElement(NotesList, { notes: notes })
+    )
+  }
+})
+
+ReactDOM.render(React.createElement(App, { notes: notes }), <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'entry-point'</span>))
+</code></pre>
+<p>By this point, calling <code>React.createElement</code> should feel
+tedious. Fortunately React provides a way to make writing this code
+much more enjoyable.</p>
+<h2 id="jsx">JSX</h2>
+<p><a href="https://facebook.github.io/react/docs/jsx-in-depth.html">JSX</a> is an
+extension to JavaScript that adds a simple HTML like syntax to the
+language. It provides an abstraction for describing user interface
+elements in JavaScript:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// Before</span>
+React.createElement(<span class="hljs-string">'p'</span>, {}, <span class="hljs-string">'Hello, world!'</span>)
+
+<span class="hljs-comment">// After</span>
+&lt;p&gt;Hello, world&lt;<span class="hljs-regexp">/p&gt;</span>
+</code></pre>
+<p>Performing this transformation is done by a JavaScript compiler. The
+one we will use is called <a href="https://babeljs.io">Babel</a></p>
+<h2 id="setting-up-babel">Setting up Babel</h2>
+<p>Babel originated as a way to compile new JavaScript language features
+down into older forms of code that every browser can. It also includes
+a JSX processor.</p>
+<p>Normally Babel requires some command line usage or integration with a
+build tool such as Make, Gulp, or Grunt. Fortunately, the project also
+maintains a version that can perform code transformation in the
+browser; perfect for our use case.</p>
+<p>Returning to the HTML document created in the last example, let’s the
+browser version of Babel to our page:</p>
+<pre><code class="lang-html">...
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"lib/react.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"lib/react-dom.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"lib/babel.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+...
+</code></pre>
+<p>Finally, change the <code>type</code> of your script tag to <code>&quot;text/babel&quot;</code>. This is
+an important step, otherwise Babel won’t touch the code.</p>
+<pre><code class="lang-html">...
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"lib/babel.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>&gt;</span><span class="undefined">
+...</span>
+</code></pre>
+<p>Okay! Now let’s put it to use, replacing all calls to
+<code>React.createElement</code> with their JSX counterparts:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> notes = [
+  { id: <span class="hljs-number">1</span>, content: <span class="hljs-string">'Learn React'</span> },
+  { id: <span class="hljs-number">2</span>, content: <span class="hljs-string">'Get Lunch'</span> },
+  { id: <span class="hljs-number">3</span>, content: <span class="hljs-string">'Learn React Native'</span> }
+]
+
+<span class="hljs-keyword">var</span> Note = React.createClass({
+  render() {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>{ this.props.content }<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span>
+  }
+})
+
+<span class="hljs-keyword">var</span> NotesList = React.createClass({
+  renderNote(note) {
+    <span class="hljs-keyword">return</span> &lt;Note key={ note.id } content={ note.content } /&gt;
+  },
+  render() {
+    return &lt;ul&gt;{ this.props.notes.map(this.renderNote) }&lt;/ul&gt;
+  }
+})
+
+var App = React.createClass({
+  render() {
+    var notes = this.props.notes
+
+    return (
+      &lt;section&gt;
+        &lt;h1&gt;You have { notes.length }&lt;/h1&gt;
+        &lt;NotesList notes={ notes } /&gt;
+      &lt;/section&gt;
+    )
+  }
+})
+
+ReactDOM.render(&lt;App notes={ notes } /&gt;, document.getElementById('entry-point'))
+</code></pre>
+<p>Much cleaner! By using JSX, the mental translation between what is
+written and what will be rendered is much less expensive. It’s also
+quite a bit easier to write.</p>
+<h2 id="html-in-javascript">HTML in JavaScript</h2>
+<p>JSX is one of sticking points beginners often struggle with when
+picking up React. By describing HTML within JavaScript, some feel it
+is a violation of the separation of concerns between markup, style,
+and control logic (HTML, CSS, and JavaScript).</p>
+<p>However <em>it’s all the presentation layer</em>. Specifically, when writing
+client-side applications, view templates are highly coupled to
+their associated views. There is often an implicit contract created by
+the data they represent. Changing one almost always leads to a change
+in the other.</p>
+<p>To that end, the React community considers the separation of a view
+component into a JavaScript and HTML file to be a <em>separation of
+technology</em>. By keeping them together, it makes it easier to reason
+about the ramifications of a change. The relationship is explicit.</p>
+<h2 id="wrapping-up">Wrapping up</h2>
+<p>This lesson was short. We focused specifically on the conversion of
+vanilla React code into the JSX format. However our application is not
+interactive. In the next lesson we’ll explore the React event system
+and dig more into component state management.</p>
+

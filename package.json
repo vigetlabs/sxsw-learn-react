@@ -1,0 +1,21 @@
+{
+  "name": "learning-react",
+  "version": "1.0.0",
+  "description": "Learning React",
+  "main": " ",
+  "scripts": {
+    "test": " "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.com:js-ios/learning-react.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Nate Hunzaker",
+  "license": "ISC",
+  "dependencies": {
+    "nhunzaker-markdown": "1.0.0"
+  }
+}
