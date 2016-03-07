@@ -83,6 +83,9 @@ browser version of Babel to our page:
 <script src="lib/react.js"></script>
 <script src="lib/react-dom.js"></script>
 <script src="lib/babel.js"></script>
+
+<!-- Alternatively: -->
+<-- <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.js"></script> -->
 ...
 ```
 

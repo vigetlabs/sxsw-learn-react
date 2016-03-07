@@ -326,9 +326,12 @@ browser; perfect for our use case.</p>
 <p>Returning to the HTML document created in the last example, let’s the
 browser version of Babel to our page:</p>
 <pre><code class="lang-html">...
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"lib/react.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"lib/react-dom.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"lib/babel.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+&lt;script src="lib/react.js"&gt;&lt;/script&gt;
+&lt;script src="lib/react-dom.js"&gt;&lt;/script&gt;
+&lt;script src="lib/babel.js"&gt;&lt;/script&gt;
+
+&lt;!-- Alternatively: --&gt;
+&lt;-- &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.js"&gt;&lt;/script&gt; --&gt;
 ...
 </code></pre>
 <p>Finally, change the <code>type</code> of your script tag to <code>&quot;text/babel&quot;</code>. This is
