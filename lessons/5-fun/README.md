@@ -1,3 +1,55 @@
 # Time for some fun
 
 This is a stretch goal...
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Learning React</title>
+    <link rel="stylesheet" href="lib/style.css" />
+  </head>
+  <body>
+    <div id="entry-point"></div>
+
+    <script src="lib/react.js"></script>
+    <script src="lib/react-dom.js"></script>
+    <script src="lib/babel.js"></script>
+
+    <script type="text/babel">
+      function Triangle () {
+        return <path fill="currentColor" d="M0 0,2 0,1 1.732 z" />
+      }
+
+      function Cluster ({ depth, transform }) {
+        if (depth <= 0) {
+          return <Triangle />
+        }
+
+        return (
+          <g transform={ transform }>
+            <Cluster depth={ depth - 1 } transform="matrix(0.5 0 0 0.5  0  0)" />
+            <Cluster depth={ depth - 1 } transform="matrix(0.5 0 0 0.5  1  0)" />
+            <Cluster depth={ depth - 1 } transform="matrix(0.5 0 0 0.5 0.5 0.866)" />
+          </g>
+        )
+      }
+
+      function Pascal ({ depth=0, fill="#039", width=window.innerWidth, height=window.innerHeight }) {
+        let x = width / 2
+        let y = height / 1.732
+        let scale = Math.min(x, y)
+
+        return (
+          <svg width={ width } height={ height } style={{ color: "red" }}>
+            <Cluster transform={ `scale(${ scale })` } depth={ depth } fill={ fill } />
+          </svg>
+        )
+      }
+
+      ReactDOM.render(<Pascal depth={ 9 } />, document.getElementById('entry-point'))
+    </script>
+  </body>
+</html>
+```

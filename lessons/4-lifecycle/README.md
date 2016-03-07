@@ -1,3 +1,0 @@
-# Lifecycle
-
-More to come...

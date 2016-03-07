@@ -14,48 +14,65 @@
 
     <script type="text/babel">
       var Note = React.createClass({
-        render() {
+        render: function () {
           return <li>{ this.props.content }</li>
         }
       })
 
       var NotesList = React.createClass({
-        renderNote(note) {
+        renderNote: function (note) {
           return <Note key={ note.id } content={ note.content } />
         },
-        render() {
+        render: function () {
           return <ul>{ this.props.notes.map(this.renderNote) }</ul>
+        }
+      })
+
+      var NotesForm = React.createClass({
+        render: function () {
+          return (
+            <form ref="form" onSubmit={ this.handleSubmission }>
+              <input type="text" ref="content" />
+              <input type="submit" value="Add Note" />
+            </form>
+          )
+        },
+
+        handleSubmission: function (event) {
+          event.preventDefault()
+          this.props.onSubmit(this.refs.content.value)
+          this.refs.form.reset()
         }
       })
 
       var App = React.createClass({
         getInitialState() {
-          return { notes: [] }
+          return {
+            notes: [
+              { id: 1, content: 'Learn React' },
+              { id: 2, content: 'Get Lunch' },
+              { id: 3, content: 'Learn React Native' }
+            ]
+          }
         },
-        render() {
+        render: function () {
           return (
             <section>
               <h1>You have { this.state.notes.length } notes</h1>
               <NotesList notes={ this.state.notes } />
-              <form ref="form" onSubmit={ this.formWasSubmitted }>
-                <input ref="content" required />
-              </form>
+              <NotesForm onSubmit={ this.formWasSubmitted } />
             </section>
           )
         },
-        formWasSubmitted(event) {
-          event.preventDefault()
-
+        formWasSubmitted: function (content) {
           var note = {
-            id: this.state.notes.length,
-            content: this.refs.content.value
+            id: Date.now().toString(), // cheap trick for unique ids, don't do this in production!
+            content: content
           }
 
           this.setState({
             notes: this.state.notes.concat(note)
           })
-
-          this.refs.form.reset()
         }
       })
 

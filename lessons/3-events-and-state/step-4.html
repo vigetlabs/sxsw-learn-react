@@ -13,21 +13,24 @@
     <script src="lib/babel.js"></script>
 
     <script type="text/babel">
-      var notes = [
-        { id: 1, content: 'Learn React' },
-        { id: 2, content: 'Get Lunch' },
-        { id: 3, content: 'Learn React Native' }
-      ]
-
       var Note = React.createClass({
         render: function () {
-          return <li>{ this.props.content }</li>
+          return (
+            <li>
+              { this.props.content }
+              <button type="button" ref="button" onClick={ this.onDeleteClick }>Remove</button>
+            </li>
+          )
+        },
+        onDeleteClick(event) {
+          event.preventDefault()
+          this.props.onDelete(this.props.id)
         }
       })
 
       var NotesList = React.createClass({
         renderNote: function (note) {
-          return <Note key={ note.id } content={ note.content } />
+          return <Note key={ note.id } id={ note.id } content={ note.content } onDelete={ this.props.onDelete }/>
         },
         render: function () {
           return <ul>{ this.props.notes.map(this.renderNote) }</ul>
@@ -52,21 +55,44 @@
       })
 
       var App = React.createClass({
+        getInitialState() {
+          return {
+            notes: [
+              { id: 1, content: 'Learn React' },
+              { id: 2, content: 'Get Lunch' },
+              { id: 3, content: 'Learn React Native' }
+            ]
+          }
+        },
         render: function () {
           return (
             <section>
-              <h1>You have { this.props.notes.length } notes</h1>
-              <NotesList notes={ this.props.notes } />
+              <h1>You have { this.state.notes.length } notes</h1>
+              <NotesList notes={ this.state.notes } onDelete={ this.noteWasDestroyed } />
               <NotesForm onSubmit={ this.formWasSubmitted } />
             </section>
           )
         },
         formWasSubmitted: function (content) {
-          alert('New note: ' + content)
+          var note = {
+            id: Date.now().toString(), // cheap trick for unique ids, don't do this in production!
+            content: content
+          }
+
+          this.setState({
+            notes: this.state.notes.concat(note)
+          })
+        },
+        noteWasDestroyed: function (id) {
+          this.setState({
+            notes: this.state.notes.filter(function (note) {
+              return note.id !== id
+            })
+          })
         }
       })
 
-      ReactDOM.render(<App notes={ notes } />, document.getElementById('entry-point'))
+      ReactDOM.render(<App />, document.getElementById('entry-point'))
     </script>
   </body>
 </html>

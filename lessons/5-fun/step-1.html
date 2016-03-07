@@ -13,37 +13,37 @@
     <script src="lib/babel.js"></script>
 
     <script type="text/babel">
-      function Recursion ({ n }) {
-        var link = "#level-" + n
+      function Triangle () {
+        return <path fill="currentColor" d="M0 0,2 0,1 1.732 z" />
+      }
+
+      function Cluster ({ depth, transform }) {
+        if (depth <= 0) {
+          return <Triangle />
+        }
 
         return (
-          <g id={ "level-" + (n + 1) }>
-            <use xlinkHref={ link } transform="matrix(0.5 0 0 0.5  0  0)" />
-            <use xlinkHref={ link } transform="matrix(0.5 0 0 0.5  1  0)" />
-            <use xlinkHref={ link } transform="matrix(0.5 0 0 0.5 0.5 0.866)" />
+          <g transform={ transform }>
+            <Cluster depth={ depth - 1 } transform="matrix(0.5 0 0 0.5  0  0)" />
+            <Cluster depth={ depth - 1 } transform="matrix(0.5 0 0 0.5  1  0)" />
+            <Cluster depth={ depth - 1 } transform="matrix(0.5 0 0 0.5 0.5 0.866)" />
           </g>
         )
       }
 
-      function Triangle ({ id, fill }) {
-        return <path id={ id } fill={ fill } d="M0 0,2 0,1 1.732 z" />
-      }
-
-      function Pascal ({ depth=1, fill="#039", width=window.innerWidth, height=window.innerHeight }) {
-        let scale = Math.min(width, height) / 2
+      function Pascal ({ depth=0, fill="#039", width=window.innerWidth, height=window.innerHeight }) {
+        let x = width / 2
+        let y = height / 1.732
+        let scale = Math.min(x, y)
 
         return (
-          <svg width={ width } height={ height }>
-            <defs>
-              <Triangle id="level-0" fill={ fill } />
-              { Array(depth).fill().map((_, n) => <Recursion key={ n } n={ n } />) }
-            </defs>
-            <use xlinkHref={ "#level-" + depth } transform={ `scale(${ scale })` } />
+          <svg width={ width } height={ height } style={{ color: "red" }}>
+            <Cluster transform={ `scale(${ scale })` } depth={ depth } fill={ fill } />
           </svg>
-          )
-        }
+        )
+      }
 
-        ReactDOM.render(<Pascal />, document.getElementById('entry-point'))
+      ReactDOM.render(<Pascal depth={ 9 } />, document.getElementById('entry-point'))
     </script>
   </body>
 </html>

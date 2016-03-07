@@ -261,5 +261,276 @@ hr {
   font-weight: bold;
 }
 </style><h1 id="events-and-state">Events and State</h1>
-<p>More to come…</p>
+<p>Applications are interactive. In this lesson we’ll learn how to listen
+to user feedback. We’ll also learn about a new way for components to
+keep track of things: internal state.</p>
+<p>Right now our application looks something like:</p>
+<pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Learning React<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"lib/style.css"</span> /&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"entry-point"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"lib/react.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"lib/react-dom.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"lib/babel.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/babel"</span>&gt;</span><span class="actionscript">
+      <span class="hljs-keyword">var</span> notes = [
+        { id: <span class="hljs-number">1</span>, content: <span class="hljs-string">'Learn React'</span> },
+        { id: <span class="hljs-number">2</span>, content: <span class="hljs-string">'Get Lunch'</span> },
+        { id: <span class="hljs-number">3</span>, content: <span class="hljs-string">'Learn React Native'</span> }
+      ]
+
+      <span class="hljs-keyword">var</span> Note = React.createClass({
+        render() {
+          <span class="hljs-keyword">return</span> &lt;li&gt;{ <span class="hljs-keyword">this</span>.props.content }&lt;/li&gt;
+        }
+      })
+
+      <span class="hljs-keyword">var</span> NotesList = React.createClass({
+        renderNote(note) {
+          <span class="hljs-keyword">return</span> &lt;Note key={ note.id } content={ note.content } /&gt;
+        },
+        render() {
+          <span class="hljs-keyword">return</span> &lt;ul&gt;{ <span class="hljs-keyword">this</span>.props.notes.map(<span class="hljs-keyword">this</span>.renderNote) }&lt;/ul&gt;
+        }
+      })
+
+      <span class="hljs-keyword">var</span> App = React.createClass({
+        render() {
+          <span class="hljs-keyword">var</span> notes = <span class="hljs-keyword">this</span>.props.notes
+
+          <span class="hljs-keyword">return</span> (
+            &lt;section&gt;
+              &lt;h1&gt;You have { notes.length }&lt;/h1&gt;
+              &lt;NotesList notes={ notes } /&gt;
+            &lt;/section&gt;
+          )
+        }
+      })
+
+      ReactDOM.render(&lt;App notes={ notes } /&gt;, document.getElementById(<span class="hljs-string">'entry-point'</span>))
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<p>This code helped us to learn about React elements, components, and the
+JSX syntax for quickly writing React code. However it isn’t interactive.</p>
+<h2 id="building-a-form-for-notes">Building a form for notes</h2>
+<p>Event handlers are configured as props, just like anything else. Let’s
+make a new component to handle creating new notes</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> NotesForm = React.createClass({
+  render: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> (
+      &lt;form ref="form" onSubmit={ this.handleSubmission }&gt;
+        &lt;input type="text" ref="content" /&gt;
+        &lt;input type="submit" value="Add Note" /&gt;
+      &lt;/form&gt;
+    )
+  },
+
+  handleSubmission: function (event) {
+    event.preventDefault()
+    this.props.onSubmit(this.refs.content)
+    this.refs.form.reset()
+  }
+})
+</code></pre>
+<p>There are a couple of new things here. First, sending the <code>onSubmit</code>
+prop to the <code>&lt;form&gt;</code> element in the <code>render</code> function creates an event
+listener for that element.</p>
+<p>This approach works, in practice, exactly like if you were to set <code>form.onsubmit</code>
+with a callback. In actuality, React sets up a delegated event handler
+on the <code>window</code>. When the form submits, the event will bubble up to
+the window, where React will intercept it and communicate the event to
+its elements.</p>
+<p>React calls this the
+<a href="https://facebook.github.io/react/docs/events.html"><em>Synthetic Event System</em></a>. We
+won’t dig too much deeper into this, but it is an interesting area of
+study for those curious.</p>
+<h2 id="what-is-a-ref-">What is a ref?</h2>
+<p>There’s another new concept: the <code>ref</code> prop. The <code>ref</code> prop acts as a
+pointer to a place in the component tree:</p>
+<pre><code class="lang-javascript">handleSubmission: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
+  <span class="hljs-comment">//...</span>
+  <span class="hljs-keyword">this</span>.refs.form.reset()
+  <span class="hljs-comment">//...</span>
+}
+</code></pre>
+<p>In our render method, we assigned a ref of <code>&quot;form&quot;</code> to the form
+element. This lets us access it directly in other places. Refs are a
+great way to quickly retrieve information about a component.</p>
+<h2 id="hooking-up-the-notes-form">Hooking up the notes form</h2>
+<p>Now that we have our form, let’s add it to the <code>App</code> component:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> App = React.createClass({
+  render: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> (
+      &lt;section&gt;
+        &lt;h1&gt;You have { this.props.notes.length } notes&lt;/h1&gt;
+        &lt;NotesList notes={ this.props.notes } /&gt;
+        &lt;NotesForm onSubmit={ this.formWasSubmitted } /&gt;
+      &lt;/section&gt;
+    )
+  },
+  formWasSubmitted: function (content) {
+    alert('New note: ' + content)
+  }
+})
+</code></pre>
+<p>When the form is submitted, we’ve told it to execute the
+<code>formWasSubmitted</code> callback inside of <code>App</code>. Go ahead and give this a
+try.</p>
+<p>Of course, simply alerting that the note should be created doesn’t get
+us very far. In order to continue, we need to talk about a new form of
+component data: <em>state</em>`.</p>
+<h2 id="props-and-state">Props and State</h2>
+<p>React components have two types of properties: props and state.</p>
+<p><strong>Props are given to a component.</strong> The only control a component has
+over their props is how to inform its children about them.</p>
+<p><strong>State is internal to a component.</strong> This is useful for keeping track
+of component local data. For example, drop-downs must be able to keep track of if
+they are open our not.</p>
+<p>Our application needs to keep track of notes. Let’s configure the
+<code>App</code> component with some internal state:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> App = React.createClass({
+  <span class="hljs-comment">// Move notes from the top of the script into here</span>
+  getInitialState: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    notes: [
+      { id: <span class="hljs-number">1</span>, content: <span class="hljs-string">'Learn React'</span> },
+      { id: <span class="hljs-number">2</span>, content: <span class="hljs-string">'Get Lunch'</span> },
+      { id: <span class="hljs-number">3</span>, content: <span class="hljs-string">'Learn React Native'</span> }
+    ]
+  },
+  render: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> (
+      &lt;section&gt;
+        &lt;h1&gt;You have { this.state.notes.length } notes&lt;/h1&gt;
+        &lt;NotesList notes={ this.state.notes } /&gt;
+        &lt;NotesForm onSubmit={ this.formWasSubmitted } /&gt;
+      &lt;/section&gt;
+    )
+  },
+  formWasSubmitted: function (content) {
+    var note = {
+      id: Date.now().toString(), // cheap trick for unique ids, don't do this in production!
+      content: content
+    }
+
+    this.setState({
+      notes: this.state.notes.concat(note)
+    })
+  }
+})
+</code></pre>
+<p>First, we add <code>getInitialState</code>, a function that runs whenever a
+component is first created with <code>React.createElement</code>. It determines
+the initial value of the component’s internal state object.</p>
+<p>Second, we replace all instances of <code>this.props.notes</code> with
+<code>this.state.notes</code>. Notes will be managed internally to the <code>App</code>.</p>
+<p>Third, we use a method we haven’t covered yet: <code>setState</code>. <code>setState</code>
+queues up a request to merge a provided object into the component’s
+internal state. This is <em>additive</em>, meaning that any other keys in the
+state object won’t be blown away.</p>
+<p>As a final step, we no longer need to send notes in as a prop to
+<code>App</code>, so let’s update our render method:</p>
+<pre><code class="lang-javascript">ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span> <span class="hljs-attr">notes</span>=<span class="hljs-string">{</span> <span class="hljs-attr">notes</span> } /&gt;</span>, document.getElementById('entry-point'))</span>
+</code></pre>
+<h2 id="removing-notes">Removing notes</h2>
+<p>Adding all the notes we want is useful, but removing notes is an
+important feature of any full-featured note application. We’ve learned
+everything about React that we need to get there.</p>
+<p>Let’s work our way down from the <code>App</code> component, adding this
+functionality the associated children. First, pass an <code>onDelete</code> prop
+into the <code>NotesList</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> App = React.createClass({
+  <span class="hljs-comment">//...</span>
+  render: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> (
+      &lt;section&gt;
+        &lt;h1&gt;You have { this.props.notes.length } notes&lt;/h1&gt;
+        &lt;NotesList notes={ this.props.notes } onDelete={ this.noteWasDestroyed } /&gt;
+        &lt;NotesForm onSubmit={ this.formWasSubmitted } /&gt;
+      &lt;/section&gt;
+    )
+  },
+  // ...
+  noteWasDestroyed: function (id) {
+    this.setState({
+      notes: this.state.notes.filter(function (note) {
+        return note.id !== id
+      })
+    })
+  }
+})
+</code></pre>
+<p>Easy enough, whenever the <code>NotesList</code> invokes the callback we provide
+to it as an <code>onDelete</code> prop, we will filter out all notes that match
+the id it provides.</p>
+<p>Speaking of the <code>NotesList</code>, we need to teach it about the <code>onDelete</code>
+prop:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> NotesList = React.createClass({
+  renderNote: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">note</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Note</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{</span> <span class="hljs-attr">note.id</span> } <span class="hljs-attr">id</span>=<span class="hljs-string">{</span> <span class="hljs-attr">note.id</span> } <span class="hljs-attr">content</span>=<span class="hljs-string">{</span> <span class="hljs-attr">note.content</span> } <span class="hljs-attr">onDelete</span>=<span class="hljs-string">{</span> <span class="hljs-attr">this.props.onDelete</span> }/&gt;</span>
+  },
+  //...
+})</span>
+</code></pre>
+<p>Easy enough, we add an <code>id</code> prop to the <code>&lt;Note /&gt;</code>, and also send to
+it the <code>onDelete</code> callback from the parent.</p>
+<p>However the <code>Note</code> itself isn’t deletable. As a final step, let’s add
+a button to the <code>Note</code> component that allows the user to trigger this
+interaction:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> Note = React.createClass({
+  render: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+        { this.props.content }
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"button"</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">"button"</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{</span> <span class="hljs-attr">this.onDeleteClick</span> }&gt;</span>Remove<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span>
+    )
+  },
+  onDeleteClick(event) {
+    event.preventDefault()
+    <span class="hljs-keyword">this</span>.props.onDelete(<span class="hljs-keyword">this</span>.props.id)
+  }
+})
+</code></pre>
+<p>That’s it! Whenever the button is clicked, the <code>Note</code> component will
+handle the specific implementation details of responding to the user’s
+interaction, then communicate the important information via the
+<code>onDelete</code> callback function.</p>
+<h2 id="one-way-data-flow">One way data flow</h2>
+<p>In order to add the delete functionality, we had to touch
+3 components. Even if this felt a little cumbersome, the flow of
+properties is extremely clear. As we walked deeper into the component
+tree, information about the application quickly faded away. Components
+such as <code>Note</code> don’t even care about a <code>note</code> record at all, simply
+the idea of a chunk of information with an <code>id</code> and `content.</p>
+<h2 id="props-are-easy-to-test">Props are easy to test</h2>
+<p>As an aside, the benefit to this approach is that testing these
+callbacks is quite straightforward:</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">canNotifyUserDeleteIntent</span> (<span class="hljs-params">id</span>) </span>{
+  <span class="hljs-built_in">console</span>.assert(id, <span class="hljs-string">'2'</span>)
+}
+
+<span class="hljs-keyword">var</span> note = ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Note</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"2"</span> <span class="hljs-attr">onDelete</span>=<span class="hljs-string">{</span> <span class="hljs-attr">canNotifyUserDeleteIntent</span> } /&gt;</span>,
+                           document.getElementById('entry-point'))
+
+note.refs.button.click()</span>
+</code></pre>
+<p><strong>Clear inputs and outputs</strong> make React components both easy to reason
+about and easy to test.</p>
+<h2 id="wrapping-up">Wrapping up</h2>
+<p>In this lesson, we learned about props and state, the React synthetic
+event system, and fleshed out more of our application. We touched
+briefly on <code>getInitialState</code>, which is a function that runs whenever a
+component is first created.</p>
+<p>That’s it! If we have extra time, or you have additionally curiosity,
+checkout lesson 4, where we explore some new language features in
+JavaScript and alternative patterns for writing React components.</p>
 

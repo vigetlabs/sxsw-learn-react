@@ -262,4 +262,54 @@ hr {
 }
 </style><h1 id="time-for-some-fun">Time for some fun</h1>
 <p>This is a stretch goal…</p>
+<pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Learning React<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"lib/style.css"</span> /&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"entry-point"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"lib/react.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"lib/react-dom.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"lib/babel.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/babel"</span>&gt;</span><span class="handlebars"><span class="xml">
+      function Triangle () {
+        return <span class="hljs-tag">&lt;<span class="hljs-name">path</span> <span class="hljs-attr">fill</span>=<span class="hljs-string">"currentColor"</span> <span class="hljs-attr">d</span>=<span class="hljs-string">"M0 0,2 0,1 1.732 z"</span> /&gt;</span>
+      }
+
+      function Cluster ({ depth, transform }) {
+        if (depth <span class="hljs-tag">&lt;<span class="hljs-name">=</span> <span class="hljs-attr">0</span>) {
+          <span class="hljs-attr">return</span> &lt;<span class="hljs-attr">Triangle</span> /&gt;</span>
+        }
+
+        return (
+          <span class="hljs-tag">&lt;<span class="hljs-name">g</span> <span class="hljs-attr">transform</span>=<span class="hljs-string">{</span> <span class="hljs-attr">transform</span> }&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">Cluster</span> <span class="hljs-attr">depth</span>=<span class="hljs-string">{</span> <span class="hljs-attr">depth</span> <span class="hljs-attr">-</span> <span class="hljs-attr">1</span> } <span class="hljs-attr">transform</span>=<span class="hljs-string">"matrix(0.5 0 0 0.5  0  0)"</span> /&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">Cluster</span> <span class="hljs-attr">depth</span>=<span class="hljs-string">{</span> <span class="hljs-attr">depth</span> <span class="hljs-attr">-</span> <span class="hljs-attr">1</span> } <span class="hljs-attr">transform</span>=<span class="hljs-string">"matrix(0.5 0 0 0.5  1  0)"</span> /&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">Cluster</span> <span class="hljs-attr">depth</span>=<span class="hljs-string">{</span> <span class="hljs-attr">depth</span> <span class="hljs-attr">-</span> <span class="hljs-attr">1</span> } <span class="hljs-attr">transform</span>=<span class="hljs-string">"matrix(0.5 0 0 0.5 0.5 0.866)"</span> /&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">g</span>&gt;</span>
+        )
+      }
+
+      function Pascal ({ depth=0, fill="#039", width=window.innerWidth, height=window.innerHeight }) {
+        let x = width / 2
+        let y = height / 1.732
+        let scale = Math.min(x, y)
+
+        return (
+          <span class="hljs-tag">&lt;<span class="hljs-name">svg</span> <span class="hljs-attr">width</span>=<span class="hljs-string">{</span> <span class="hljs-attr">width</span> } <span class="hljs-attr">height</span>=<span class="hljs-string">{</span> <span class="hljs-attr">height</span> } <span class="hljs-attr">style</span>=</span></span><span class="hljs-template-variable">{{ color: "red" }}</span><span class="xml"><span class="hljs-tag">&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">Cluster</span> <span class="hljs-attr">transform</span>=<span class="hljs-string">{</span> `<span class="hljs-attr">scale</span>(${ <span class="hljs-attr">scale</span> })` } <span class="hljs-attr">depth</span>=<span class="hljs-string">{</span> <span class="hljs-attr">depth</span> } <span class="hljs-attr">fill</span>=<span class="hljs-string">{</span> <span class="hljs-attr">fill</span> } /&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span>
+        )
+      }
+
+      ReactDOM.render(<span class="hljs-tag">&lt;<span class="hljs-name">Pascal</span> <span class="hljs-attr">depth</span>=<span class="hljs-string">{</span> <span class="hljs-attr">9</span> } /&gt;</span>, document.getElementById('entry-point'))
+    </span></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
 
