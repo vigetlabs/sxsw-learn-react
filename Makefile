@@ -15,9 +15,7 @@ help:
 	@ echo "  ${GREEN}docs${RESET}  – create pretty docs for lessons."
 	@ echo
 
-start: docs server
-
-server:
+start:
 	@ echo "${PLUS} running lessons at $(SERVER_URL)"
 	@ echo "${INFO} press ctrl + c when finished"
 	@ python -m SimpleHTTPServer $(PORT) > /dev/null 2>&1
