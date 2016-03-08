@@ -96,7 +96,7 @@ an important step, otherwise Babel won't touch the code.
 ...
 <script src="lib/babel.js"></script>
 
-<script type="text/javascript">
+<script type="text/babel">
 ...
 ```
 
@@ -169,3 +169,7 @@ This lesson was short. We focused specifically on the conversion of
 vanilla React code into the JSX format. However our application is not
 interactive. In the next lesson we'll explore the React event system
 and dig more into component state management.
+
+---
+
+[Lesson 4](../3-events-and-state)

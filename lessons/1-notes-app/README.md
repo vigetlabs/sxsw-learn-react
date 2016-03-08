@@ -112,7 +112,7 @@ var notes = [
   { id: 3, content: 'Learn React Native' }
 ]
 
-var notesListItems = messages.map(function (message) {
+var notesListItems = notes.map(function (message) {
   return React.createElement('li', { key: message.id }, message.content)
 })
 
@@ -247,3 +247,7 @@ _should_ feel tedious.
 
 In the next lesson we'll explore ways to improve this. We'll explore
 new ways to make working with React elements much more ergonomic.
+
+---
+
+[Lesson 3](../2-jsx)

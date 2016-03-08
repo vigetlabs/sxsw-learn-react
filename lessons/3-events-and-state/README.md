@@ -333,3 +333,7 @@ component is first created.
 That's it! If we have extra time, or you have additionally curiosity,
 checkout lesson 4, where we explore some new language features in
 JavaScript and alternative patterns for writing React components.
+
+---
+
+[Lesson 5](../4-pascal-bonus)

@@ -139,3 +139,7 @@ Components, props, and some other important concepts in the React
 library.
 
 In the next lesson, we'll dig deeper by building something more substantive.
+
+---
+
+[Lesson 2](../1-notes-app)
