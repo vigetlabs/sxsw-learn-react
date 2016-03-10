@@ -336,4 +336,4 @@ JavaScript and alternative patterns for writing React components.
 
 ---
 
-[Lesson 5](../4-pascal-bonus)
+[Lesson 5](../4-pascal-bonus/index.html)

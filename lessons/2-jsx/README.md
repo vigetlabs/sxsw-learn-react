@@ -172,4 +172,4 @@ and dig more into component state management.
 
 ---
 
-[Lesson 4](../3-events-and-state)
+[Lesson 4](../3-events-and-state/index.html)

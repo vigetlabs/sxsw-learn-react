@@ -250,4 +250,4 @@ new ways to make working with React elements much more ergonomic.
 
 ---
 
-[Lesson 3](../2-jsx)
+[Lesson 3](../2-jsx/index.html)
