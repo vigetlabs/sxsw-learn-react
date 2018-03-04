@@ -9,51 +9,52 @@
 # Environment defaults
 include ./.env
 
-all: docs lib
-
-lib: lib/babel.js lib/react.js lib/react-dom.js
-	@ cp -rf $@ lessons/0-intro/
-	@ cp -rf $@ lessons/1-notes-app/
-	@ cp -rf $@ lessons/2-jsx/
-	@ cp -rf $@ lessons/3-events-and-state/
-	@ cp -rf $@ lessons/4-pascal-bonus/
-	@ echo "${INFO} All libraries are up to date!"
-
-lib/babel.js:
-	@ mkdir -p lib
-	@ curl -s "https://unpkg.com/babel-standalone@6/babel.min.js" > $@
-	@ echo "${PLUS} $@"
-
-lib/react.js:
-	@ mkdir -p lib
-	@ curl -s "https://unpkg.com/react@16.2.0/umd/react.production.min.js" > $@
-	@ echo "${PLUS} $@"
-
-lib/react-dom.js:
-	@ mkdir -p lib
-	@ curl -s "https://unpkg.com/react-dom@16.2.0/umd/react-dom.production.min.js" > $@
-	@ echo "${PLUS} $@"
+build: docs libs
 
 help:
 	@ echo
-	@ echo "  ${GREEN}start${RESET} – host a local web server."
-	@ echo "  ${GREEN}all${RESET} – build all project artifacts."
-	@ echo "  ${GREEN}docs${RESET}  – create pretty docs for lessons."
-	@ echo "  ${GREEN}lib${RESET} – update libraries."
+	@ echo "  ${GREEN}build{RESET} – build all project artifacts."
+	@ echo "  ${GREEN}web{RESET} – host a local web server."
+	@ echo "  ${GREEN}docs${RESET}  – regenerate HTML docs for lessons."
 	@ echo
 
-start:
+web: all
 	@ echo "${PLUS} running lessons at $(SERVER_URL)"
 	@ echo "${INFO} press ctrl + c when finished"
 	@ python -m SimpleHTTPServer $(PORT) > /dev/null 2>&1
 
-docs: $(patsubst %.md,%.html,$(wildcard lessons/**/README.md) README.md)
+libs: public/lib/babel.js public/lib/react.js public/lib/react-dom.js
 
-%.html: %.md
+public/lib/babel.js:
+	@ mkdir -p $(@D)
+	@ curl -s "https://unpkg.com/babel-standalone@6/babel.min.js" > $@
+	@ echo "${PLUS} $@"
+
+public/lib/react.js:
+	@ mkdir -p $(@D)
+	@ curl -s "https://unpkg.com/react@16.2.0/umd/react.production.min.js" > $@
+	@ echo "${PLUS} $@"
+
+public/lib/react-dom.js:
+	@ mkdir -p $(@D)
+	@ curl -s "https://unpkg.com/react-dom@16.2.0/umd/react-dom.production.min.js" > $@
+	@ echo "${PLUS} $@"
+
+docs: $(patsubst %.md,public/%.html,$(wildcard lessons/**/README.md) README.md)
+
+public/%.html: %.md
+	@ mkdir -p $(@D)
 	@ node_modules/.bin/prettier --write $<
 	@ echo "<meta charset='utf-8'>" > $(@D)/index.html
 	@ cat $^ | node ./node_modules/@hunzaker/markdown >> $(@D)/index.html
 	@ echo "${PLUS} $(@D)/index.html"
+
+template: build
+	@ mkdir -p public/template
+	@ cp -rf public/lib public/template/lib
+	@ cp lessons/scratch.html public/template/index.html
+	@ cd public; zip -rqm template{.zip,}
+	@ echo "${PLUS} $@.zip"
 
 clean:
 	@ git clean -fd -X

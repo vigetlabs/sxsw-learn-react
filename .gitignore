@@ -1,3 +1,3 @@
 node_modules
-lib/*.js
-lessons/*/lib
+public/*
+!public/style.css
