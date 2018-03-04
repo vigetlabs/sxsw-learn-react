@@ -26,7 +26,6 @@ web: docs
 docs: $(patsubst lessons/%.md,public/%.html,$(wildcard lessons/*.md))
 
 public/%.html: lessons/%.md
-	@ node_modules/.bin/prettier --write $<
 	@ echo "<meta charset='utf-8'>" > $@
 	@ cat $^ | node ./node_modules/@hunzaker/markdown >> $@
 	@ echo "${PLUS} $@"
