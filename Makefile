@@ -9,55 +9,34 @@
 # Environment defaults
 include ./.env
 
-build: docs libs
+all: docs starter-kit
 
 help:
 	@ echo
-	@ echo "  ${GREEN}build{RESET} – build all project artifacts."
-	@ echo "  ${GREEN}web{RESET} – host a local web server."
+	@ echo "  ${GREEN}all${RESET} – build all project artifacts."
+	@ echo "  ${GREEN}web${RESET} – host a local web server."
 	@ echo "  ${GREEN}docs${RESET}  – regenerate HTML docs for lessons."
 	@ echo
 
-web: all
+web: docs
 	@ echo "${PLUS} running lessons at $(SERVER_URL)"
 	@ echo "${INFO} press ctrl + c when finished"
-	@ python -m SimpleHTTPServer $(PORT) > /dev/null 2>&1
+	@ open public/index.html
 
-libs: public/lib/babel.js public/lib/react.js public/lib/react-dom.js
+docs: $(patsubst lessons/%.md,public/%.html,$(wildcard lessons/*.md))
 
-public/lib/babel.js:
-	@ mkdir -p $(@D)
-	@ curl -s "https://unpkg.com/babel-standalone@6/babel.min.js" > $@
-	@ echo "${PLUS} $@"
-
-public/lib/react.js:
-	@ mkdir -p $(@D)
-	@ curl -s "https://unpkg.com/react@16.2.0/umd/react.production.min.js" > $@
-	@ echo "${PLUS} $@"
-
-public/lib/react-dom.js:
-	@ mkdir -p $(@D)
-	@ curl -s "https://unpkg.com/react-dom@16.2.0/umd/react-dom.production.min.js" > $@
-	@ echo "${PLUS} $@"
-
-docs: $(patsubst %.md,public/%.html,$(wildcard lessons/**/README.md) README.md)
-
-public/%.html: %.md
-	@ mkdir -p $(@D)
+public/%.html: lessons/%.md
 	@ node_modules/.bin/prettier --write $<
-	@ echo "<meta charset='utf-8'>" > $(@D)/index.html
-	@ cat $^ | node ./node_modules/@hunzaker/markdown >> $(@D)/index.html
-	@ echo "${PLUS} $(@D)/index.html"
+	@ echo "<meta charset='utf-8'>" > $@
+	@ cat $^ | node ./node_modules/@hunzaker/markdown >> $@
+	@ echo "${PLUS} $@"
 
-template: build
-	@ mkdir -p public/template
-	@ cp -rf public/lib public/template/lib
-	@ cp lessons/scratch.html public/template/index.html
-	@ cd public; zip -rqm template{.zip,}
+starter-kit:
+	@ cd public; zip -rq starter-kit{.zip,}
 	@ echo "${PLUS} $@.zip"
 
 clean:
-	@ git clean -fd -X
+	@ git clean -fdXq
 	@ echo "${INFO} clean"
 
 .PHONY: lib clean
