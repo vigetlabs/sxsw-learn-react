@@ -68,3 +68,7 @@ We can also visualize it graphically. Let's give it a shot:
   </body>
 </html>
 ```
+
+## You did it!
+
+Thanks for walking through our introduction to React! Now it's time for the main event: React Native.

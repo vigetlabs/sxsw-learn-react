@@ -131,4 +131,4 @@ In the next lesson, we'll dig deeper by building something more substantive.
 
 ---
 
-[Lesson 2](../1-notes-app/index.html)
+[Lesson 2](../2-notes-app.html)

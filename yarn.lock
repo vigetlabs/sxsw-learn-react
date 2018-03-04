@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@hunzaker/markdown@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@hunzaker/markdown/-/markdown-1.1.1.tgz#dbf9f2626b783f8af484ff0e240aa55d5522f19c"
+"@hunzaker/markdown@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@hunzaker/markdown/-/markdown-1.1.2.tgz#60cfa8ef8ca556f26661c0f70e24dc54ffa5ceec"
   dependencies:
     highlight.js "9.12.0"
     marked "0.3.17"

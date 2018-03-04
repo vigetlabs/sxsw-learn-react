@@ -5,7 +5,7 @@
     "format": "prettier --write './lessons/*/**.{js,css,md}'"
   },
   "dependencies": {
-    "@hunzaker/markdown": "^1.1.1",
+    "@hunzaker/markdown": "^1.1.2",
     "prettier": "^1.11.1"
   },
   "prettier": {

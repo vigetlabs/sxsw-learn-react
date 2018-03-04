@@ -258,4 +258,4 @@ make working with React elements much more ergonomic.
 
 ---
 
-[Lesson 3](../2-jsx/index.html)
+[Lesson 3](../3-jsx.html)

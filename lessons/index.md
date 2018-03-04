@@ -6,15 +6,15 @@ React, that way you can easily follow along with minimum friction.
 
 ## What we'll learn
 
-1.  [Intro](lessons/0-intro/index.html)
-2.  [Notes App](lessons/1-notes-app/index.html)
-3.  [JSX](lessons/2-jsx/index.html)
-4.  [Events and State](lessons/3-events-and-state/index.html)
-5.  [Pascal Triangle (Bonus)](lessons/4-pascal-bonus/index.html)
+1.  [Intro](1-intro.html)
+2.  [Notes App](2-notes-app.html)
+3.  [JSX](3-jsx.html)
+4.  [Events and State](4-events-and-state.html)
+5.  [Pascal Triangle (Bonus)](5-pascal-bonus.html)
 
-Each lesson starts from the same basic project template, which [you can a starter kit here](./starter-kit.zip).
+Each lesson starts from the same basic project template, which [you can download here](./starter-kit.zip).
 
-If that isn't your thing, you can also copy it here:
+If that isn't your thing, or you just want to know what it looks like:
 
 ```html
 <!DOCTYPE html>
@@ -38,9 +38,11 @@ If that isn't your thing, you can also copy it here:
 </html>
 ```
 
-With the following required files:
+With the following required dependencies:
 
-1.  [React](./lib/react.js)
-2.  [ReactDOM](./lib/react-dom.js)
-3.  [Babel](./lib/babel.js)
-4.  [styles](./lib/styles.css)
+1.  [**React**](https://unpkg.com/react@16.2.0/umd/react.production.min.js): The cross-platform API for authoring React apps.
+2.  [**ReactDOM**](https://unpkg.com/react-dom@16.2.0/umd/react-dom.production.min.js): The browser rendering engine for React.
+3.  [**Babel**](https://unpkg.com/babel-standalone@6.26.0/babel.min.js): An in-browser code compiler (we'll need this in later lessons).
+4.  [**Project**](./lib/starter-kit/styles.css): Our project styles, so you can focus on React.
+
+Just be sure to link them up correctly in your local workspace!
