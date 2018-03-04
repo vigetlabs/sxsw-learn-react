@@ -21,7 +21,7 @@ help:
 web: docs
 	@ echo "${PLUS} running lessons at $(SERVER_URL)"
 	@ echo "${INFO} press ctrl + c when finished"
-	@ open public/index.html
+	@ php -S localhost:$(PORT) -t public
 
 docs: $(patsubst lessons/%.md,public/%.html,$(wildcard lessons/*.md))
 
