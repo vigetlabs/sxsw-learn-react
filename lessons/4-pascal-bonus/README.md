@@ -1,11 +1,10 @@
 # Pascal's Triangle
 
-Time to have some fun. In this lesson we'll dig deeper into React
-Components.
+Time to have some fun. In this lesson we'll dig deeper into React Components.
 
-[Pascal's triangle](https://en.wikipedia.org/wiki/Pascal%27s_triangle)
-is a triangular array where the result of each element is the sum of
-the two elements above it:
+[Pascal's triangle](https://en.wikipedia.org/wiki/Pascal%27s_triangle) is a
+triangular array where the result of each element is the sum of the two elements
+above it:
 
 ```html
           1

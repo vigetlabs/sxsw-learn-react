@@ -1,6 +1,22 @@
 <meta charset='utf-8'>
-<style>body {
-  box-shadow: inset 0 3px 0 0 #242331;
+<style>html {
+  background: #242331;
+  padding-top: 3px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  -webkit-box-sizing: inherit;
+}
+
+body {
+  background: #fff;
   color: #333;
   font-family: "Roboto Draft", "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 14px;
@@ -8,7 +24,8 @@
   line-height: 20px;
   margin: 0;
   padding-bottom: 40px;
-  padding-top: 24px
+  padding-top: 24px;
+  position: relative;
 }
 
 /* body:before { */
@@ -25,13 +42,25 @@
 /*   pointer-events: none; */
 /* } */
 
-p, div, section, main, ul, ol, dl, h1, h2, h3, h4, h5, h6, pre code, blockquote {
+p, div, section, main, ul, ol, dl, h1, h2, h3, h4, h5, h6, pre code, blockquote, iframe {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  max-width: 510px;
+  max-width: 550px;
   padding-left: 16px;
   padding-right: 16px;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+iframe {
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  padding: 0;
+  margin: 16px auto 32px;
 }
 
 h1, h2, h3 {
@@ -44,24 +73,22 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ol, ul {
-  line-height: 28px;
+  line-height: 20px;
   margin-top: 0;
   margin-bottom: 8px;
 }
 
 li {
-  display: flex;
+  display: table;
   list-style: none;
 }
 
 li:before {
-  display: inline-block;
-  margin-left: -16px;
+  display: table-cell;
   opacity: 0.54;
   text-align: right;
   padding-right: 12px;
-  padding-left: 12px;
-  width: 16px;
+  width: 12px;
 }
 
 ul > li:before {
@@ -96,15 +123,15 @@ h2 {
   font-size: 24px;
   font-weight: 500;
   line-height: 44px;
-  margin-top: 24px;
-  margin-bottom: 8px;
+  margin-top: 12px;
+  margin-bottom: 12px;
 }
 
 h3 {
   font-size: 20px;
   font-weight: 600;
   line-height: 44px;
-  margin-top: 24px;
+  margin-top: 12px;
 }
 
 h4 {
@@ -120,7 +147,7 @@ h5, h6 {
 }
 
 p {
-  line-height: 28px;
+  line-height: 24px;
   margin: 0 auto;
   padding: 12px 16px 24px;
   hyphens: auto;
@@ -141,7 +168,7 @@ code {
 pre {
   background: #242331;
   padding: 38px 16px;
-  line-height: 24px;
+  line-height: 20px;
   margin: 20px 0 36px;
   overflow: auto;
 }
@@ -150,14 +177,15 @@ pre code {
   background: transparent;
   color: #ECECF6;
   border-radius: 0;
-  font-size: 100%;
+  font-size: 13px;
   font-family: 'Inconsolata', "Lucida Console", Monaco, monospace;
-  padding: 0;
+  padding: 0 20px;
 }
 
 a {
   color: inherit;
   transition: 0.3s all;
+  text-decoration: underline dotted;
 }
 
 a:hover,
@@ -181,6 +209,27 @@ hr {
   border: 0;
   border-bottom: 1px dotted #ccc;
   margin: 48px 0;
+}
+
+table {
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  border-spacing: 0;
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 8px 16px;
+  width: 100%;
+}
+
+table thead th {
+  border-bottom: 1px solid #d9d9d9;
+  text-align: left;
+}
+
+table td,
+table th {
+  padding: 12px 24px 8px 0;
+  vertical-align: top;
 }
 
 /**
@@ -261,9 +310,9 @@ hr {
   font-weight: bold;
 }
 </style><h1 id="introducing-react">Introducing React</h1>
-<p>Before we dive into React Native, we need to lay down a foundation
-with React itself. Over the course of the next few lessons, we’ll
-walk through the following:</p>
+<p>Before we dive into React Native, we need to lay down a foundation with React
+itself. Over the course of the next few lessons, we’ll walk through the
+following:</p>
 <ol>
 <li>React Elements and Components</li>
 <li>Props and State</li>
@@ -272,21 +321,21 @@ walk through the following:</p>
 <li>Events</li>
 </ol>
 <h2 id="heads-up">Heads up</h2>
-<p>We’ll assume as little prior knowledge with React as possible. However
-we expect a working knowledge of HTML and JavaScript. If this isn’t
-your case, we recommend grabbing a partner. Also feel free to ping us
-during the working sessions.</p>
+<p>We’ll assume as little prior knowledge with React as possible. However we expect
+a working knowledge of HTML and JavaScript. If this isn’t your case, we
+recommend grabbing a partner. Also feel free to ping us during the working
+sessions.</p>
 <p>If you have never worked with web technologies before. the
-<a href="https://developer.mozilla.org">Mozilla Developer Network</a> is a
-wonderful place to start.</p>
+<a href="https://developer.mozilla.org">Mozilla Developer Network</a> is a wonderful place
+to start.</p>
 <p>Additionally, there are some fantastic resources on JavaScript:</p>
 <ul>
 <li><a href="http://eloquentjavascript.net/">Eloquent Javascript</a></li>
 <li><a href="http://speakingjs.com/es5/">Speaking Javascript</a></li>
 </ul>
 <h2 id="a-brief-tour">A Brief Tour</h2>
-<p>Create an HTML document. It can be called whatever you would
-like. Fill it with the following code:</p>
+<p>Create an HTML document. It can be called whatever you would like. Fill it with
+the following code:</p>
 <pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
@@ -315,65 +364,61 @@ like. Fill it with the following code:</p>
   <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 </code></pre>
-<p>There isn’t too much going on here. The important part is that we
-include <code>React</code> and <code>ReactDOM</code> right before our empty script block.</p>
-<p>The React library contains the standard API for React, including the
-ability to create React elements and components (we’ll cover this
-distinction later). ReactDOM is a <em>rendering engine</em> for React. It
-basically tells React how to build a web page using the DOM.</p>
-<p>The DOM stands for <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model">Document Object Model</a>,
-and it is how JavaScript interacts with a web page. You won’t have to
-interact much (if at all) with the DOM using React.</p>
+<p>There isn’t too much going on here. The important part is that we include
+<code>React</code> and <code>ReactDOM</code> right before our empty script block.</p>
+<p>The React library contains the standard API for React, including the ability to
+create React elements and components (we’ll cover this distinction later).
+ReactDOM is a <em>rendering engine</em> for React. It basically tells React how to
+build a web page using the DOM.</p>
+<p>The DOM stands for
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model">Document Object Model</a>,
+and it is how JavaScript interacts with a web page. You won’t have to interact
+much (if at all) with the DOM using React.</p>
 <h2 id="react-elements">React Elements</h2>
-<p>The most primitive data type in React is the <em>element</em>. They are
-analogous to DOM elements, even created similarly:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> hello = React.createElement(<span class="hljs-string">'p'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">"Hello, World!"</span>);
+<p>The most primitive data type in React is the <em>element</em>. They are analogous to
+DOM elements, even created similarly:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> hello = React.createElement(<span class="hljs-string">'p'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'Hello, World!'</span>)
 </code></pre>
-<p>React elements are chunks of data that describe how to build a user
-interface. Think of them as low level instructions; the assembly of
-React.</p>
-<p>Providing <code>&quot;p&quot;</code> as the first argument tells React to build
-a paragraph tag. We’ve skipped over the second argument, but it allows
-you to set information like <code>className</code> and <code>tabIndex</code>. Just like
-<code>document.createElement(&quot;p&quot;)</code>. The third argument, <code>&quot;Hello, World!&quot;</code>,
-is a child element. Since <code>&quot;Hello, World!&quot;</code> is a string, React will
-automatically build a text node to represent it.</p>
+<p>React elements are chunks of data that describe how to build a user interface.
+Think of them as low level instructions; the assembly of React.</p>
+<p>Providing <code>&quot;p&quot;</code> as the first argument tells React to build a paragraph tag.
+We’ve skipped over the second argument, but it allows you to set information
+like <code>className</code> and <code>tabIndex</code>. Just like <code>document.createElement(&quot;p&quot;)</code>. The
+third argument, <code>&quot;Hello, World!&quot;</code>, is a child element. Since <code>&quot;Hello, World!&quot;</code>
+is a string, React will automatically build a text node to represent it.</p>
 <h2 id="rendering-an-element">Rendering an element</h2>
-<p>In order to actually view this element, we need to <em>render</em>
-it. <code>ReactDOM.render</code> is the function responsible for turning the
-React elements into actual HTML:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> hello = React.createElement(<span class="hljs-string">'p'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'Hello, World!'</span>);
+<p>In order to actually view this element, we need to <em>render</em> it.
+<code>ReactDOM.render</code> is the function responsible for turning the React elements
+into actual HTML:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> hello = React.createElement(<span class="hljs-string">'p'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'Hello, World!'</span>)
 
 <span class="hljs-comment">// Checkout what this does by opening your HTML file in the browser</span>
-ReactDOM.render(hello, <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'entry-point'</span>));
+ReactDOM.render(hello, <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'entry-point'</span>))
 </code></pre>
 <h2 id="what-s-happening-">What’s happening?</h2>
-<p>Let’s look at the signature of <code>React.createElement</code> from the <a href="https://facebook.github.io/react/docs/glossary.html#react-elements">React docs</a>:</p>
+<p>Let’s look at the signature of <code>React.createElement</code> from the
+<a href="https://facebook.github.io/react/docs/glossary.html#react-elements">React docs</a>:</p>
 <pre><code class="lang-html">ReactElement createElement(string/ReactClass type, [object props], [children ...])
 </code></pre>
 <ol>
-<li><p><strong>string/ReactClass</strong>: <code>createElement</code> will accept either the
-string name of an HTML element, or a React component class. We’ll get
-into React components later.</p>
-</li>
-<li><p><strong>[object props]</strong>: An object of properties. For HTML elements,
-this could be something like <code>disabled</code>, <code>className</code> or <code>tabIndex</code>.</p>
-</li>
-<li><p><strong>[children]</strong>: Regular HTML elements can have children, and React
-elements are no exception. This can be any number of additional
-parameters passed to <code>createElement</code>, so <code>React.createElement(&#39;p&#39;,
-null, &#39;Hello, &#39;, &#39;World&#39;)</code> is also totally valid.</p>
-</li>
+<li><strong>string/ReactClass</strong>: <code>createElement</code> will accept either the string name of
+an HTML element, or a React component class. We’ll get into React components
+later.</li>
+<li><strong>[object props]</strong>: An object of properties. For HTML elements, this could be
+something like <code>disabled</code>, <code>className</code> or <code>tabIndex</code>.</li>
+<li><strong>[children]</strong>: Regular HTML elements can have children, and React elements
+are no exception. This can be any number of additional parameters passed to
+<code>createElement</code>, so <code>React.createElement(&#39;p&#39;, null, &#39;Hello, &#39;, &#39;World&#39;)</code> is
+also totally valid.</li>
 </ol>
-<p>In using <code>React.createElement</code>, we can provide low level instructions
-to whatever rendering engine we chose for how to build user
-interfaces. We simply model our UI in the ideal state. React decides
-the most efficient way to build and update the page for us.</p>
+<p>In using <code>React.createElement</code>, we can provide low level instructions to
+whatever rendering engine we chose for how to build user interfaces. We simply
+model our UI in the ideal state. React decides the most efficient way to build
+and update the page for us.</p>
 <h2 id="wrapping-up">Wrapping up</h2>
-<p>This concludes the first lesson. You created your first React element
-and rendered into web page. We also briefly touched on React
-Components, props, and some other important concepts in the React
-library.</p>
+<p>This concludes the first lesson. You created your first React element and
+rendered into web page. We also briefly touched on React Components, props, and
+some other important concepts in the React library.</p>
 <p>In the next lesson, we’ll dig deeper by building something more substantive.</p>
 <hr>
 <p><a href="../1-notes-app/index.html">Lesson 2</a></p>

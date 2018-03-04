@@ -1,6 +1,22 @@
 <meta charset='utf-8'>
-<style>body {
-  box-shadow: inset 0 3px 0 0 #242331;
+<style>html {
+  background: #242331;
+  padding-top: 3px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  -webkit-box-sizing: inherit;
+}
+
+body {
+  background: #fff;
   color: #333;
   font-family: "Roboto Draft", "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 14px;
@@ -8,7 +24,8 @@
   line-height: 20px;
   margin: 0;
   padding-bottom: 40px;
-  padding-top: 24px
+  padding-top: 24px;
+  position: relative;
 }
 
 /* body:before { */
@@ -25,13 +42,25 @@
 /*   pointer-events: none; */
 /* } */
 
-p, div, section, main, ul, ol, dl, h1, h2, h3, h4, h5, h6, pre code, blockquote {
+p, div, section, main, ul, ol, dl, h1, h2, h3, h4, h5, h6, pre code, blockquote, iframe {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  max-width: 510px;
+  max-width: 550px;
   padding-left: 16px;
   padding-right: 16px;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+iframe {
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  padding: 0;
+  margin: 16px auto 32px;
 }
 
 h1, h2, h3 {
@@ -44,24 +73,22 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ol, ul {
-  line-height: 28px;
+  line-height: 20px;
   margin-top: 0;
   margin-bottom: 8px;
 }
 
 li {
-  display: flex;
+  display: table;
   list-style: none;
 }
 
 li:before {
-  display: inline-block;
-  margin-left: -16px;
+  display: table-cell;
   opacity: 0.54;
   text-align: right;
   padding-right: 12px;
-  padding-left: 12px;
-  width: 16px;
+  width: 12px;
 }
 
 ul > li:before {
@@ -96,15 +123,15 @@ h2 {
   font-size: 24px;
   font-weight: 500;
   line-height: 44px;
-  margin-top: 24px;
-  margin-bottom: 8px;
+  margin-top: 12px;
+  margin-bottom: 12px;
 }
 
 h3 {
   font-size: 20px;
   font-weight: 600;
   line-height: 44px;
-  margin-top: 24px;
+  margin-top: 12px;
 }
 
 h4 {
@@ -120,7 +147,7 @@ h5, h6 {
 }
 
 p {
-  line-height: 28px;
+  line-height: 24px;
   margin: 0 auto;
   padding: 12px 16px 24px;
   hyphens: auto;
@@ -141,7 +168,7 @@ code {
 pre {
   background: #242331;
   padding: 38px 16px;
-  line-height: 24px;
+  line-height: 20px;
   margin: 20px 0 36px;
   overflow: auto;
 }
@@ -150,14 +177,15 @@ pre code {
   background: transparent;
   color: #ECECF6;
   border-radius: 0;
-  font-size: 100%;
+  font-size: 13px;
   font-family: 'Inconsolata', "Lucida Console", Monaco, monospace;
-  padding: 0;
+  padding: 0 20px;
 }
 
 a {
   color: inherit;
   transition: 0.3s all;
+  text-decoration: underline dotted;
 }
 
 a:hover,
@@ -181,6 +209,27 @@ hr {
   border: 0;
   border-bottom: 1px dotted #ccc;
   margin: 48px 0;
+}
+
+table {
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  border-spacing: 0;
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 8px 16px;
+  width: 100%;
+}
+
+table thead th {
+  border-bottom: 1px solid #d9d9d9;
+  text-align: left;
+}
+
+table td,
+table th {
+  padding: 12px 24px 8px 0;
+  vertical-align: top;
 }
 
 /**
@@ -261,11 +310,10 @@ hr {
   font-weight: bold;
 }
 </style><h1 id="pascal-s-triangle">Pascal’s Triangle</h1>
-<p>Time to have some fun. In this lesson we’ll dig deeper into React
-Components.</p>
-<p><a href="https://en.wikipedia.org/wiki/Pascal%27s_triangle">Pascal’s triangle</a>
-is a triangular array where the result of each element is the sum of
-the two elements above it:</p>
+<p>Time to have some fun. In this lesson we’ll dig deeper into React Components.</p>
+<p><a href="https://en.wikipedia.org/wiki/Pascal%27s_triangle">Pascal’s triangle</a> is a
+triangular array where the result of each element is the sum of the two elements
+above it:</p>
 <pre><code class="lang-html">          1
         1   1
       1   2   1

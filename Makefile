@@ -24,5 +24,5 @@ docs: $(patsubst %.md,%.html,$(wildcard lessons/**/README.md) README.md)
 
 %.html: %.md
 	@ echo "<meta charset='utf-8'>" > $(@D)/index.html
-	@ cat $^ | node ./node_modules/nhunzaker-markdown/index >> $(@D)/index.html
+	@ cat $^ | node ./node_modules/@hunzaker/markdown >> $(@D)/index.html
 	@ echo "${PLUS} $(@D)/index.html"

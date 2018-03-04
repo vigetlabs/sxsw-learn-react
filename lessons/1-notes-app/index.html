@@ -1,6 +1,22 @@
 <meta charset='utf-8'>
-<style>body {
-  box-shadow: inset 0 3px 0 0 #242331;
+<style>html {
+  background: #242331;
+  padding-top: 3px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  -webkit-box-sizing: inherit;
+}
+
+body {
+  background: #fff;
   color: #333;
   font-family: "Roboto Draft", "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 14px;
@@ -8,7 +24,8 @@
   line-height: 20px;
   margin: 0;
   padding-bottom: 40px;
-  padding-top: 24px
+  padding-top: 24px;
+  position: relative;
 }
 
 /* body:before { */
@@ -25,13 +42,25 @@
 /*   pointer-events: none; */
 /* } */
 
-p, div, section, main, ul, ol, dl, h1, h2, h3, h4, h5, h6, pre code, blockquote {
+p, div, section, main, ul, ol, dl, h1, h2, h3, h4, h5, h6, pre code, blockquote, iframe {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  max-width: 510px;
+  max-width: 550px;
   padding-left: 16px;
   padding-right: 16px;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+iframe {
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  padding: 0;
+  margin: 16px auto 32px;
 }
 
 h1, h2, h3 {
@@ -44,24 +73,22 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ol, ul {
-  line-height: 28px;
+  line-height: 20px;
   margin-top: 0;
   margin-bottom: 8px;
 }
 
 li {
-  display: flex;
+  display: table;
   list-style: none;
 }
 
 li:before {
-  display: inline-block;
-  margin-left: -16px;
+  display: table-cell;
   opacity: 0.54;
   text-align: right;
   padding-right: 12px;
-  padding-left: 12px;
-  width: 16px;
+  width: 12px;
 }
 
 ul > li:before {
@@ -96,15 +123,15 @@ h2 {
   font-size: 24px;
   font-weight: 500;
   line-height: 44px;
-  margin-top: 24px;
-  margin-bottom: 8px;
+  margin-top: 12px;
+  margin-bottom: 12px;
 }
 
 h3 {
   font-size: 20px;
   font-weight: 600;
   line-height: 44px;
-  margin-top: 24px;
+  margin-top: 12px;
 }
 
 h4 {
@@ -120,7 +147,7 @@ h5, h6 {
 }
 
 p {
-  line-height: 28px;
+  line-height: 24px;
   margin: 0 auto;
   padding: 12px 16px 24px;
   hyphens: auto;
@@ -141,7 +168,7 @@ code {
 pre {
   background: #242331;
   padding: 38px 16px;
-  line-height: 24px;
+  line-height: 20px;
   margin: 20px 0 36px;
   overflow: auto;
 }
@@ -150,14 +177,15 @@ pre code {
   background: transparent;
   color: #ECECF6;
   border-radius: 0;
-  font-size: 100%;
+  font-size: 13px;
   font-family: 'Inconsolata', "Lucida Console", Monaco, monospace;
-  padding: 0;
+  padding: 0 20px;
 }
 
 a {
   color: inherit;
   transition: 0.3s all;
+  text-decoration: underline dotted;
 }
 
 a:hover,
@@ -181,6 +209,27 @@ hr {
   border: 0;
   border-bottom: 1px dotted #ccc;
   margin: 48px 0;
+}
+
+table {
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  border-spacing: 0;
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 8px 16px;
+  width: 100%;
+}
+
+table thead th {
+  border-bottom: 1px solid #d9d9d9;
+  text-align: left;
+}
+
+table td,
+table th {
+  padding: 12px 24px 8px 0;
+  vertical-align: top;
 }
 
 /**
@@ -261,9 +310,9 @@ hr {
   font-weight: bold;
 }
 </style><h1 id="beginning-the-notes-app">Beginning the Notes App</h1>
-<p>In the last exercise, we went over the minimum surface area required
-to make a user interface with React. Now we’ll dig deeper, by making
-an app to keep track of notes.</p>
+<p>In the last exercise, we went over the minimum surface area required to make a
+user interface with React. Now we’ll dig deeper, by making an app to keep track
+of notes.</p>
 <p>We’ll work with the same HTML structure as last time:</p>
 <pre><code class="lang-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>&gt;</span>
@@ -292,35 +341,37 @@ an app to keep track of notes.</p>
   <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
  <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 </code></pre>
-<p>Open this file in a browser and open the console tab of the browser
-inspector. On Chrome for Mac, you can do this with <code>alt + cmd + j</code>.</p>
+<p>Open this file in a browser and open the console tab of the browser inspector.
+On Chrome for Mac, you can do this with <code>alt + cmd + j</code>.</p>
 <h2 id="react-and-react-dom">React and React DOM</h2>
-<p>Like last time, we’re pulling in two JavaScript files: React and
-ReactDOM. To recap, React is separated into two components:</p>
+<p>Like last time, we’re pulling in two JavaScript files: React and ReactDOM. To
+recap, React is separated into two components:</p>
 <ul>
 <li>The standard library</li>
 <li>A rendering engine</li>
 </ul>
-<p>In the last lesson we talked about <code>createElement</code>, React’s way to
-produce atomic pieces of user interface. The neat thing about this
-approach is that it is isolated from the implementation details of how
-to actually render a screen.</p>
-<p>Renderers exist for a number of platforms, with first-party support
-for the browser, NodeJS, and iOS and Android. However the community
-supports numerous other environments such as the
+<p>In the last lesson we talked about <code>createElement</code>, React’s way to produce
+atomic pieces of user interface. The neat thing about this approach is that it
+is isolated from the implementation details of how to actually render a screen.</p>
+<p>Renderers exist for a number of platforms, with first-party support for the
+browser, NodeJS, and iOS and Android. However the community supports numerous
+other environments such as the
 <a href="https://github.com/Yomguithereal/react-blessed">command line</a>, and
 <a href="https://github.com/gabrielbull/react-desktop">desktop</a>.</p>
-<p>Since we are React loading in the browser, we’re really only concerned
-with rendering DOM elements (and thus we loaded ReactDOM). However
-the techniques we will learn are applicable to all rendering
-environments.</p>
+<p>Since we are React loading in the browser, we’re really only concerned with
+rendering DOM elements (and thus we loaded ReactDOM). However the techniques we
+will learn are applicable to all rendering environments.</p>
 <p>So let’s get started…</p>
 <h2 id="getting-something-to-look-at">Getting something to look at</h2>
-<p>At the bottom of the page, replace <code>console.log(&quot;Hello world&quot;)</code> with
-the following:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> notesList = React.createElement(<span class="hljs-string">'section'</span>, {},
+<p>At the bottom of the page, replace <code>console.log(&quot;Hello world&quot;)</code> with the
+following:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> notesList = React.createElement(
+  <span class="hljs-string">'section'</span>,
+  {},
   React.createElement(<span class="hljs-string">'h1'</span>, {}, <span class="hljs-string">'You have 3 notes'</span>),
-  React.createElement(<span class="hljs-string">'ul'</span>, {},
+  React.createElement(
+    <span class="hljs-string">'ul'</span>,
+    {},
     React.createElement(<span class="hljs-string">'li'</span>, {}, <span class="hljs-string">'Learn React'</span>),
     React.createElement(<span class="hljs-string">'li'</span>, {}, <span class="hljs-string">'Get Lunch'</span>),
     React.createElement(<span class="hljs-string">'li'</span>, {}, <span class="hljs-string">'Learn React Native'</span>)
@@ -329,34 +380,34 @@ the following:</p>
 
 ReactDOM.render(notesList, <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'entry-point'</span>))
 </code></pre>
-<p>It’s okay to feel like this is gross. It <em>is</em> gross. In the future
-we’ll explore ways to make everything look cleaner. But for now, it’s
-important to expose the underlying mechanics.</p>
-<p>Refresh your page. You should see your brand new React application
-introducing itself to the world for the first time! How exciting!</p>
+<p>It’s okay to feel like this is gross. It _is_ gross. In the future we’ll explore
+ways to make everything look cleaner. But for now, it’s important to expose the
+underlying mechanics.</p>
+<p>Refresh your page. You should see your brand new React application introducing
+itself to the world for the first time! How exciting!</p>
 <p>Let’s recap from the introduction. <code>React.createElement</code> is React’s way of
-creating instructions for how to build user interfaces. If you can
-think of HTML as a tree, where each element contains children inside,
-it’s exact the same thing. The difference is that React is capturing
-the <em>idea</em> of that tree, instead of making it right away.</p>
-<p>This is the fundamental building block of any React
-app. <code>createElement</code> provides a way to a describe user interfaces as
-tree of elements.</p>
+creating instructions for how to build user interfaces. If you can think of HTML
+as a tree, where each element contains children inside, it’s exact the same
+thing. The difference is that React is capturing the <em>idea</em> of that tree,
+instead of making it right away.</p>
+<p>This is the fundamental building block of any React app. <code>createElement</code>
+provides a way to a describe user interfaces as tree of elements.</p>
 <h2 id="it-s-all-javascript">It’s all JavaScript</h2>
-<p><code>React.createElement</code> is just a function invocation, and we have a
-list of items - so why not keep track of the notes as a list, and
-enumerate over them?</p>
+<p><code>React.createElement</code> is just a function invocation, and we have a list of
+items - so why not keep track of the notes as a list, and enumerate over them?</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">var</span> notes = [
-  { id: <span class="hljs-number">1</span>, content: <span class="hljs-string">'Learn React'</span> },
-  { id: <span class="hljs-number">2</span>, content: <span class="hljs-string">'Get Lunch'</span> },
-  { id: <span class="hljs-number">3</span>, content: <span class="hljs-string">'Learn React Native'</span> }
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">'Learn React'</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">'Get Lunch'</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">'Learn React Native'</span> }
 ]
 
-<span class="hljs-keyword">var</span> notesListItems = notes.map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">message</span>) </span>{
-  <span class="hljs-keyword">return</span> React.createElement(<span class="hljs-string">'li'</span>, { key: message.id }, message.content)
+<span class="hljs-keyword">var</span> notesListItems = notes.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">message</span>) </span>{
+  <span class="hljs-keyword">return</span> React.createElement(<span class="hljs-string">'li'</span>, { <span class="hljs-attr">key</span>: message.id }, message.content)
 })
 
-<span class="hljs-keyword">var</span> notesList = React.createElement(<span class="hljs-string">'section'</span>, {},
+<span class="hljs-keyword">var</span> notesList = React.createElement(
+  <span class="hljs-string">'section'</span>,
+  {},
   React.createElement(<span class="hljs-string">'h1'</span>, {}, <span class="hljs-string">'You have '</span>, notes.length, <span class="hljs-string">' reminders'</span>),
   React.createElement(<span class="hljs-string">'ul'</span>, {}, notesListItems)
 )
@@ -365,49 +416,52 @@ ReactDOM.render(notesList, <span class="hljs-built_in">document</span>.getElemen
 </code></pre>
 <p>There are two new concepts here.</p>
 <ol>
-<li><p><strong>Child elements can be expressed as an array.</strong> This allows you to
-easily enumerate over a list of data to build lists in your UI.</p>
+<li><p><strong>Child elements can be expressed as an array.</strong> This allows you to easily
+enumerate over a list of data to build lists in your UI.</p>
 </li>
-<li><p><strong>The <code>key</code> property (provided in the second argument) tells React
-how to keep track of list items between renders</strong>. This also helps React to
-recycle DOM nodes when resorting a list.</p>
+<li><p><strong>The <code>key</code> property (provided in the second argument) tells React how to
+keep track of list items between renders</strong>. This also helps React to recycle
+DOM nodes when resorting a list.</p>
 </li>
 </ol>
-<p>React elements aren’t the only building block we have to work
-with. We can also create chunks of React elements that represent a
-common behavior: React components.</p>
+<p>React elements aren’t the only building block we have to work with. We can also
+create chunks of React elements that represent a common behavior: React
+components.</p>
 <h2 id="creating-components">Creating Components</h2>
-<p><code>React.createClass</code> allows you to make React components. Think of
-these like custom HTML elements. When you create a component, The only
-requirement is that you tell it how to render:</p>
+<p><code>React.createClass</code> allows you to make React components. Think of these like
+custom HTML elements. When you create a component, The only requirement is that
+you tell it how to render:</p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// For illustrative purposes only, don't replace existing code</span>
 <span class="hljs-keyword">var</span> Workshop = React.createClass({
-  render: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">return</span> React.createElement(<span class="hljs-string">'&lt;section&gt;'</span>, {},
+  <span class="hljs-attr">render</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> React.createElement(
+      <span class="hljs-string">'&lt;section&gt;'</span>,
+      {},
       React.createElement(<span class="hljs-string">'h1'</span>, {}, <span class="hljs-string">'React Native Workshop'</span>),
-      React.createElement(<span class="hljs-string">'p'</span>, {}, <span class="hljs-string">'Learning the fundamentals first.'</span>),
+      React.createElement(<span class="hljs-string">'p'</span>, {}, <span class="hljs-string">'Learning the fundamentals first.'</span>)
     )
   }
 })
 
-ReactDOM.render(React.createElement(Workshop, {}), <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'entry-point'</span>))
+ReactDOM.render(
+  React.createElement(Workshop, {}),
+  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'entry-point'</span>)
+)
 </code></pre>
-<p>This isn’t too far off from what we’ve done before, however the
-<code>Workshop</code> component acts as a cohesive chunk. React components must
-implement a <code>render</code> method, which returns instructions for how to
-build the <code>Workshop</code> component.</p>
-<p>In later sessions we’ll explore adding behaviors such as button clicks
-and other DOM interactions. React Components provide a framework for
-encapsulating that behavior.</p>
+<p>This isn’t too far off from what we’ve done before, however the <code>Workshop</code>
+component acts as a cohesive chunk. React components must implement a <code>render</code>
+method, which returns instructions for how to build the <code>Workshop</code> component.</p>
+<p>In later sessions we’ll explore adding behaviors such as button clicks and other
+DOM interactions. React Components provide a framework for encapsulating that
+behavior.</p>
 <h2 id="putting-components-to-work">Putting components to work</h2>
-<p>Looking at the code we have written for our notes app, it is easy to
-see at least more two discrete components. Let’s take a stab at creating
-those now:</p>
+<p>Looking at the code we have written for our notes app, it is easy to see at
+least more two discrete components. Let’s take a stab at creating those now:</p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// Step 3</span>
 <span class="hljs-keyword">var</span> notes = [
-  { id: <span class="hljs-number">1</span>, content: <span class="hljs-string">'Learn React'</span> },
-  { id: <span class="hljs-number">2</span>, content: <span class="hljs-string">'Get Lunch'</span> },
-  { id: <span class="hljs-number">3</span>, content: <span class="hljs-string">'Learn React Native'</span> }
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">'Learn React'</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">'Get Lunch'</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">'Learn React Native'</span> }
 ]
 
 <span class="hljs-keyword">var</span> Note = React.createClass({
@@ -418,7 +472,7 @@ those now:</p>
 
 <span class="hljs-keyword">var</span> NotesList = React.createClass({
   renderNote(note) {
-    <span class="hljs-keyword">return</span> React.createElement(Note, { key: note.id, content: note.content })
+    <span class="hljs-keyword">return</span> React.createElement(Note, { <span class="hljs-attr">key</span>: note.id, <span class="hljs-attr">content</span>: note.content })
   },
   render() {
     <span class="hljs-keyword">return</span> React.createElement(<span class="hljs-string">'ul'</span>, {}, <span class="hljs-keyword">this</span>.props.notes.map(<span class="hljs-keyword">this</span>.renderNote))
@@ -429,44 +483,47 @@ those now:</p>
   render() {
     <span class="hljs-keyword">var</span> notes = <span class="hljs-keyword">this</span>.props.notes
 
-    <span class="hljs-keyword">return</span> React.createElement(<span class="hljs-string">'section'</span>, {},
+    <span class="hljs-keyword">return</span> React.createElement(
+      <span class="hljs-string">'section'</span>,
+      {},
       React.createElement(<span class="hljs-string">'h1'</span>, {}, <span class="hljs-string">'You have '</span>, notes.length, <span class="hljs-string">' notes'</span>),
-      React.createElement(NotesList, { notes: notes })
+      React.createElement(NotesList, { <span class="hljs-attr">notes</span>: notes })
     )
   }
 })
 
-ReactDOM.render(React.createElement(App, { notes: notes }), <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'entry-point'</span>))
+ReactDOM.render(
+  React.createElement(App, { <span class="hljs-attr">notes</span>: notes }),
+  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'entry-point'</span>)
+)
 </code></pre>
 <p>Here we’ve created <code>App</code>, <code>NotesList</code> and <code>Note</code> components. Instead of
-referencing <code>notes</code> globally, we pass them in as a property to the
-<code>App</code>, which then distributes that data to the <code>NoteList</code>. Then the
-<code>NoteList</code> uses that knowledge to build its list UI.</p>
+referencing <code>notes</code> globally, we pass them in as a property to the <code>App</code>, which
+then distributes that data to the <code>NoteList</code>. Then the <code>NoteList</code> uses that
+knowledge to build its list UI.</p>
 <h2 id="react-components-have-properties">React components have properties</h2>
-<p>By sending <code>notes</code> data into the <code>App</code> component, we’ve touched
-briefly on the concept of <code>props</code>. Props provide a way to send
-instructions to a component for how it should operate.</p>
-<p>There is a direct parallel here with HTML. When you set the
-<code>disabled</code> property of a button, you command it to stop receiving user
-interaction. Similarly, in our example, we tell the <code>NotesList</code> the
-items it should render.</p>
-<p>The strength of this approach is that it grants React components clear
-inputs and outputs. Information flows in one direction, downward. When
-a React component receives props, it knows to re-render.</p>
-<p>One-way flow of data is at the heart of React. When you hear community
-members speak about it, this is what they mean. It eliminates the need
-to monitor data changes at a minute level. Performance optimizations
-can happen in isolation, and it is easier to verify their
-effectiveness. Testing also becomes much easier.</p>
-<p>We won’t dig too much deeper, however it’s something to keep in mind
-moving forward.</p>
+<p>By sending <code>notes</code> data into the <code>App</code> component, we’ve touched briefly on the
+concept of <code>props</code>. Props provide a way to send instructions to a component for
+how it should operate.</p>
+<p>There is a direct parallel here with HTML. When you set the <code>disabled</code> property
+of a button, you command it to stop receiving user interaction. Similarly, in
+our example, we tell the <code>NotesList</code> the items it should render.</p>
+<p>The strength of this approach is that it grants React components clear inputs
+and outputs. Information flows in one direction, downward. When a React
+component receives props, it knows to re-render.</p>
+<p>One-way flow of data is at the heart of React. When you hear community members
+speak about it, this is what they mean. It eliminates the need to monitor data
+changes at a minute level. Performance optimizations can happen in isolation,
+and it is easier to verify their effectiveness. Testing also becomes much
+easier.</p>
+<p>We won’t dig too much deeper, however it’s something to keep in mind moving
+forward.</p>
 <h2 id="wrapping-up">Wrapping Up</h2>
-<p>In this lesson we converted our direct calls to <code>React.createElement</code>
-into chunks of user interface concerned with displaying a particular
-type of information. By this point, typing <code>React.createElement</code>
-<em>should</em> feel tedious.</p>
-<p>In the next lesson we’ll explore ways to improve this. We’ll explore
-new ways to make working with React elements much more ergonomic.</p>
+<p>In this lesson we converted our direct calls to <code>React.createElement</code> into
+chunks of user interface concerned with displaying a particular type of
+information. By this point, typing <code>React.createElement</code> <em>should</em> feel tedious.</p>
+<p>In the next lesson we’ll explore ways to improve this. We’ll explore new ways to
+make working with React elements much more ergonomic.</p>
 <hr>
 <p><a href="../2-jsx/index.html">Lesson 3</a></p>
 
