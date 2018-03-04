@@ -426,7 +426,7 @@ retrieve information about a component.</p>
     )
   },
   formWasSubmitted: function(content) {
-    alert('New note: ' + content)
+    alert("New note: " + content)
   }
 })
 </code></pre>
@@ -448,9 +448,9 @@ component with some internal state:</p>
   <span class="hljs-comment">// Move notes from the top of the script into here</span>
   getInitialState: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     notes: [
-      { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">'Learn React'</span> },
-      { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">'Get Lunch'</span> },
-      { <span class="hljs-attr">id</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">'Learn React Native'</span> }
+      { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">"Learn React"</span> },
+      { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">"Get Lunch"</span> },
+      { <span class="hljs-attr">id</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">"Learn React Native"</span> }
     ]
   },
   <span class="hljs-attr">render</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
@@ -485,7 +485,7 @@ is <em>additive</em>, meaning that any other keys in the state object won’t be
 away.</p>
 <p>As a final step, we no longer need to send notes in as a prop to <code>App</code>, so let’s
 update our render method:</p>
-<pre><code class="lang-javascript">ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span> <span class="hljs-attr">notes</span>=<span class="hljs-string">{notes}</span> /&gt;</span>, document.getElementById('entry-point'))</span>
+<pre><code class="lang-javascript">ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span> <span class="hljs-attr">notes</span>=<span class="hljs-string">{notes}</span> /&gt;</span>, document.getElementById("entry-point"))</span>
 </code></pre>
 <h2 id="removing-notes">Removing notes</h2>
 <p>Adding all the notes we want is useful, but removing notes is an important
@@ -565,12 +565,12 @@ all, simply the idea of a chunk of information with an <code>id</code> and `cont
 <p>As an aside, the benefit to this approach is that testing these callbacks is
 quite straightforward:</p>
 <pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">canNotifyUserDeleteIntent</span>(<span class="hljs-params">id</span>) </span>{
-  <span class="hljs-built_in">console</span>.assert(id, <span class="hljs-string">'2'</span>)
+  <span class="hljs-built_in">console</span>.assert(id, <span class="hljs-string">"2"</span>)
 }
 
 <span class="hljs-keyword">var</span> note = ReactDOM.render(
   <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Note</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"2"</span> <span class="hljs-attr">onDelete</span>=<span class="hljs-string">{canNotifyUserDeleteIntent}</span> /&gt;</span>,
-  document.getElementById('entry-point')
+  document.getElementById("entry-point")
 )
 
 note.refs.button.click()</span>

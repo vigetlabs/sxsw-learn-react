@@ -8,14 +8,14 @@ of information:
 
 ```javascript
 var notes = [
-  { id: 1, content: 'Learn React' },
-  { id: 2, content: 'Get Lunch' },
-  { id: 3, content: 'Learn React Native' }
+  { id: 1, content: "Learn React" },
+  { id: 2, content: "Get Lunch" },
+  { id: 3, content: "Learn React Native" }
 ]
 
 var Note = React.createClass({
   render() {
-    return React.createElement('li', {}, this.props.content)
+    return React.createElement("li", {}, this.props.content)
   }
 })
 
@@ -24,7 +24,7 @@ var NotesList = React.createClass({
     return React.createElement(Note, { key: note.id, content: note.content })
   },
   render() {
-    return React.createElement('ul', {}, this.props.notes.map(this.renderNote))
+    return React.createElement("ul", {}, this.props.notes.map(this.renderNote))
   }
 })
 
@@ -33,9 +33,9 @@ var App = React.createClass({
     var notes = this.props.notes
 
     return React.createElement(
-      'section',
+      "section",
       {},
-      React.createElement('h1', {}, 'You have ', notes.length, ' notes'),
+      React.createElement("h1", {}, "You have ", notes.length, " notes"),
       React.createElement(NotesList, { notes: notes })
     )
   }
@@ -43,7 +43,7 @@ var App = React.createClass({
 
 ReactDOM.render(
   React.createElement(App, { notes: notes }),
-  document.getElementById('entry-point')
+  document.getElementById("entry-point")
 )
 ```
 
@@ -106,9 +106,9 @@ their JSX counterparts:
 
 ```javascript
 var notes = [
-  { id: 1, content: 'Learn React' },
-  { id: 2, content: 'Get Lunch' },
-  { id: 3, content: 'Learn React Native' }
+  { id: 1, content: "Learn React" },
+  { id: 2, content: "Get Lunch" },
+  { id: 3, content: "Learn React Native" }
 ]
 
 var Note = React.createClass({
@@ -139,7 +139,7 @@ var App = React.createClass({
   }
 })
 
-ReactDOM.render(<App notes={notes} />, document.getElementById('entry-point'))
+ReactDOM.render(<App notes={notes} />, document.getElementById("entry-point"))
 ```
 
 Much cleaner! By using JSX, the mental translation between what is written and

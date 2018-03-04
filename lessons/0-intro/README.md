@@ -1,14 +1,14 @@
 # Introducing React
 
-Before we dive into React Native, we need to lay down a foundation with React
-itself. Over the course of the next few lessons, we'll walk through the
-following:
+This workshop is about React Native, that means we first need to establish a
+foundation with React. Over the course of the next few lessons, we'll walk
+through the following:
 
-1. React Elements and Components
-2. Props and State
-3. JSX (JavaScript XML Syntax)
-4. Component Lifecycle Methods
-5. Events
+1.  React Elements and Components
+2.  Props and State
+3.  JSX (JavaScript XML Syntax)
+4.  Component Lifecycle Methods
+5.  Events
 
 ## Heads up
 
@@ -80,7 +80,7 @@ The most primitive data type in React is the _element_. They are analogous to
 DOM elements, even created similarly:
 
 ```javascript
-var hello = React.createElement('p', null, 'Hello, World!')
+var hello = React.createElement("p", null, "Hello, World!")
 ```
 
 React elements are chunks of data that describe how to build a user interface.
@@ -99,10 +99,10 @@ In order to actually view this element, we need to _render_ it.
 into actual HTML:
 
 ```javascript
-var hello = React.createElement('p', null, 'Hello, World!')
+var hello = React.createElement("p", null, "Hello, World!")
 
 // Checkout what this does by opening your HTML file in the browser
-ReactDOM.render(hello, document.getElementById('entry-point'))
+ReactDOM.render(hello, document.getElementById("entry-point"))
 ```
 
 ## What's happening?
@@ -114,15 +114,15 @@ Let's look at the signature of `React.createElement` from the
 ReactElement createElement(string/ReactClass type, [object props], [children ...])
 ```
 
-1. **string/ReactClass**: `createElement` will accept either the string name of
-   an HTML element, or a React component class. We'll get into React components
-   later.
-2. **[object props]**: An object of properties. For HTML elements, this could be
-   something like `disabled`, `className` or `tabIndex`.
-3. **[children]**: Regular HTML elements can have children, and React elements
-   are no exception. This can be any number of additional parameters passed to
-   `createElement`, so `React.createElement('p', null, 'Hello, ', 'World')` is
-   also totally valid.
+1.  **string/ReactClass**: `createElement` will accept either the string name of
+    an HTML element, or a React component class. We'll get into React components
+    later.
+2.  **[object props]**: An object of properties. For HTML elements, this could be
+    something like `disabled`, `className` or `tabIndex`.
+3.  **[children]**: Regular HTML elements can have children, and React elements
+    are no exception. This can be any number of additional parameters passed to
+    `createElement`, so `React.createElement('p', null, 'Hello, ', 'World')` is
+    also totally valid.
 
 In using `React.createElement`, we can provide low level instructions to
 whatever rendering engine we chose for how to build user interfaces. We simply

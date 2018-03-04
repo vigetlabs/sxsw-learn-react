@@ -136,7 +136,7 @@ var App = React.createClass({
     )
   },
   formWasSubmitted: function(content) {
-    alert('New note: ' + content)
+    alert("New note: " + content)
   }
 })
 ```
@@ -167,9 +167,9 @@ var App = React.createClass({
   // Move notes from the top of the script into here
   getInitialState: function() {
     notes: [
-      { id: 1, content: 'Learn React' },
-      { id: 2, content: 'Get Lunch' },
-      { id: 3, content: 'Learn React Native' }
+      { id: 1, content: "Learn React" },
+      { id: 2, content: "Get Lunch" },
+      { id: 3, content: "Learn React Native" }
     ]
   },
   render: function() {
@@ -210,7 +210,7 @@ As a final step, we no longer need to send notes in as a prop to `App`, so let's
 update our render method:
 
 ```javascript
-ReactDOM.render(<App notes={notes} />, document.getElementById('entry-point'))
+ReactDOM.render(<App notes={notes} />, document.getElementById("entry-point"))
 ```
 
 ## Removing notes
@@ -310,12 +310,12 @@ quite straightforward:
 
 ```javascript
 function canNotifyUserDeleteIntent(id) {
-  console.assert(id, '2')
+  console.assert(id, "2")
 }
 
 var note = ReactDOM.render(
   <Note id="2" onDelete={canNotifyUserDeleteIntent} />,
-  document.getElementById('entry-point')
+  document.getElementById("entry-point")
 )
 
 note.refs.button.click()

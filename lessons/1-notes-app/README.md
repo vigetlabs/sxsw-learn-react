@@ -69,19 +69,19 @@ following:
 
 ```javascript
 var notesList = React.createElement(
-  'section',
+  "section",
   {},
-  React.createElement('h1', {}, 'You have 3 notes'),
+  React.createElement("h1", {}, "You have 3 notes"),
   React.createElement(
-    'ul',
+    "ul",
     {},
-    React.createElement('li', {}, 'Learn React'),
-    React.createElement('li', {}, 'Get Lunch'),
-    React.createElement('li', {}, 'Learn React Native')
+    React.createElement("li", {}, "Learn React"),
+    React.createElement("li", {}, "Get Lunch"),
+    React.createElement("li", {}, "Learn React Native")
   )
 )
 
-ReactDOM.render(notesList, document.getElementById('entry-point'))
+ReactDOM.render(notesList, document.getElementById("entry-point"))
 ```
 
 It's okay to feel like this is gross. It _is_ gross. In the future we'll explore
@@ -107,33 +107,33 @@ items - so why not keep track of the notes as a list, and enumerate over them?
 
 ```javascript
 var notes = [
-  { id: 1, content: 'Learn React' },
-  { id: 2, content: 'Get Lunch' },
-  { id: 3, content: 'Learn React Native' }
+  { id: 1, content: "Learn React" },
+  { id: 2, content: "Get Lunch" },
+  { id: 3, content: "Learn React Native" }
 ]
 
 var notesListItems = notes.map(function(message) {
-  return React.createElement('li', { key: message.id }, message.content)
+  return React.createElement("li", { key: message.id }, message.content)
 })
 
 var notesList = React.createElement(
-  'section',
+  "section",
   {},
-  React.createElement('h1', {}, 'You have ', notes.length, ' reminders'),
-  React.createElement('ul', {}, notesListItems)
+  React.createElement("h1", {}, "You have ", notes.length, " reminders"),
+  React.createElement("ul", {}, notesListItems)
 )
 
-ReactDOM.render(notesList, document.getElementById('entry-point'))
+ReactDOM.render(notesList, document.getElementById("entry-point"))
 ```
 
 There are two new concepts here.
 
-1. **Child elements can be expressed as an array.** This allows you to easily
-   enumerate over a list of data to build lists in your UI.
+1.  **Child elements can be expressed as an array.** This allows you to easily
+    enumerate over a list of data to build lists in your UI.
 
-2. **The `key` property (provided in the second argument) tells React how to
-   keep track of list items between renders**. This also helps React to recycle
-   DOM nodes when resorting a list.
+2.  **The `key` property (provided in the second argument) tells React how to
+    keep track of list items between renders**. This also helps React to recycle
+    DOM nodes when resorting a list.
 
 React elements aren't the only building block we have to work with. We can also
 create chunks of React elements that represent a common behavior: React
@@ -150,17 +150,17 @@ you tell it how to render:
 var Workshop = React.createClass({
   render: function() {
     return React.createElement(
-      '<section>',
+      "<section>",
       {},
-      React.createElement('h1', {}, 'React Native Workshop'),
-      React.createElement('p', {}, 'Learning the fundamentals first.')
+      React.createElement("h1", {}, "React Native Workshop"),
+      React.createElement("p", {}, "Learning the fundamentals first.")
     )
   }
 })
 
 ReactDOM.render(
   React.createElement(Workshop, {}),
-  document.getElementById('entry-point')
+  document.getElementById("entry-point")
 )
 ```
 
@@ -180,14 +180,14 @@ least more two discrete components. Let's take a stab at creating those now:
 ```javascript
 // Step 3
 var notes = [
-  { id: 1, content: 'Learn React' },
-  { id: 2, content: 'Get Lunch' },
-  { id: 3, content: 'Learn React Native' }
+  { id: 1, content: "Learn React" },
+  { id: 2, content: "Get Lunch" },
+  { id: 3, content: "Learn React Native" }
 ]
 
 var Note = React.createClass({
   render() {
-    return React.createElement('li', {}, this.props.content)
+    return React.createElement("li", {}, this.props.content)
   }
 })
 
@@ -196,7 +196,7 @@ var NotesList = React.createClass({
     return React.createElement(Note, { key: note.id, content: note.content })
   },
   render() {
-    return React.createElement('ul', {}, this.props.notes.map(this.renderNote))
+    return React.createElement("ul", {}, this.props.notes.map(this.renderNote))
   }
 })
 
@@ -205,9 +205,9 @@ var App = React.createClass({
     var notes = this.props.notes
 
     return React.createElement(
-      'section',
+      "section",
       {},
-      React.createElement('h1', {}, 'You have ', notes.length, ' notes'),
+      React.createElement("h1", {}, "You have ", notes.length, " notes"),
       React.createElement(NotesList, { notes: notes })
     )
   }
@@ -215,7 +215,7 @@ var App = React.createClass({
 
 ReactDOM.render(
   React.createElement(App, { notes: notes }),
-  document.getElementById('entry-point')
+  document.getElementById("entry-point")
 )
 ```
 

@@ -366,19 +366,19 @@ will learn are applicable to all rendering environments.</p>
 <p>At the bottom of the page, replace <code>console.log(&quot;Hello world&quot;)</code> with the
 following:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">var</span> notesList = React.createElement(
-  <span class="hljs-string">'section'</span>,
+  <span class="hljs-string">"section"</span>,
   {},
-  React.createElement(<span class="hljs-string">'h1'</span>, {}, <span class="hljs-string">'You have 3 notes'</span>),
+  React.createElement(<span class="hljs-string">"h1"</span>, {}, <span class="hljs-string">"You have 3 notes"</span>),
   React.createElement(
-    <span class="hljs-string">'ul'</span>,
+    <span class="hljs-string">"ul"</span>,
     {},
-    React.createElement(<span class="hljs-string">'li'</span>, {}, <span class="hljs-string">'Learn React'</span>),
-    React.createElement(<span class="hljs-string">'li'</span>, {}, <span class="hljs-string">'Get Lunch'</span>),
-    React.createElement(<span class="hljs-string">'li'</span>, {}, <span class="hljs-string">'Learn React Native'</span>)
+    React.createElement(<span class="hljs-string">"li"</span>, {}, <span class="hljs-string">"Learn React"</span>),
+    React.createElement(<span class="hljs-string">"li"</span>, {}, <span class="hljs-string">"Get Lunch"</span>),
+    React.createElement(<span class="hljs-string">"li"</span>, {}, <span class="hljs-string">"Learn React Native"</span>)
   )
 )
 
-ReactDOM.render(notesList, <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'entry-point'</span>))
+ReactDOM.render(notesList, <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"entry-point"</span>))
 </code></pre>
 <p>It’s okay to feel like this is gross. It _is_ gross. In the future we’ll explore
 ways to make everything look cleaner. But for now, it’s important to expose the
@@ -396,23 +396,23 @@ provides a way to a describe user interfaces as tree of elements.</p>
 <p><code>React.createElement</code> is just a function invocation, and we have a list of
 items - so why not keep track of the notes as a list, and enumerate over them?</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">var</span> notes = [
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">'Learn React'</span> },
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">'Get Lunch'</span> },
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">'Learn React Native'</span> }
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">"Learn React"</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">"Get Lunch"</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">"Learn React Native"</span> }
 ]
 
 <span class="hljs-keyword">var</span> notesListItems = notes.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">message</span>) </span>{
-  <span class="hljs-keyword">return</span> React.createElement(<span class="hljs-string">'li'</span>, { <span class="hljs-attr">key</span>: message.id }, message.content)
+  <span class="hljs-keyword">return</span> React.createElement(<span class="hljs-string">"li"</span>, { <span class="hljs-attr">key</span>: message.id }, message.content)
 })
 
 <span class="hljs-keyword">var</span> notesList = React.createElement(
-  <span class="hljs-string">'section'</span>,
+  <span class="hljs-string">"section"</span>,
   {},
-  React.createElement(<span class="hljs-string">'h1'</span>, {}, <span class="hljs-string">'You have '</span>, notes.length, <span class="hljs-string">' reminders'</span>),
-  React.createElement(<span class="hljs-string">'ul'</span>, {}, notesListItems)
+  React.createElement(<span class="hljs-string">"h1"</span>, {}, <span class="hljs-string">"You have "</span>, notes.length, <span class="hljs-string">" reminders"</span>),
+  React.createElement(<span class="hljs-string">"ul"</span>, {}, notesListItems)
 )
 
-ReactDOM.render(notesList, <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'entry-point'</span>))
+ReactDOM.render(notesList, <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"entry-point"</span>))
 </code></pre>
 <p>There are two new concepts here.</p>
 <ol>
@@ -435,17 +435,17 @@ you tell it how to render:</p>
 <span class="hljs-keyword">var</span> Workshop = React.createClass({
   <span class="hljs-attr">render</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">return</span> React.createElement(
-      <span class="hljs-string">'&lt;section&gt;'</span>,
+      <span class="hljs-string">"&lt;section&gt;"</span>,
       {},
-      React.createElement(<span class="hljs-string">'h1'</span>, {}, <span class="hljs-string">'React Native Workshop'</span>),
-      React.createElement(<span class="hljs-string">'p'</span>, {}, <span class="hljs-string">'Learning the fundamentals first.'</span>)
+      React.createElement(<span class="hljs-string">"h1"</span>, {}, <span class="hljs-string">"React Native Workshop"</span>),
+      React.createElement(<span class="hljs-string">"p"</span>, {}, <span class="hljs-string">"Learning the fundamentals first."</span>)
     )
   }
 })
 
 ReactDOM.render(
   React.createElement(Workshop, {}),
-  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'entry-point'</span>)
+  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"entry-point"</span>)
 )
 </code></pre>
 <p>This isn’t too far off from what we’ve done before, however the <code>Workshop</code>
@@ -459,14 +459,14 @@ behavior.</p>
 least more two discrete components. Let’s take a stab at creating those now:</p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// Step 3</span>
 <span class="hljs-keyword">var</span> notes = [
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">'Learn React'</span> },
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">'Get Lunch'</span> },
-  { <span class="hljs-attr">id</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">'Learn React Native'</span> }
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">"Learn React"</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">"Get Lunch"</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">content</span>: <span class="hljs-string">"Learn React Native"</span> }
 ]
 
 <span class="hljs-keyword">var</span> Note = React.createClass({
   render() {
-    <span class="hljs-keyword">return</span> React.createElement(<span class="hljs-string">'li'</span>, {}, <span class="hljs-keyword">this</span>.props.content)
+    <span class="hljs-keyword">return</span> React.createElement(<span class="hljs-string">"li"</span>, {}, <span class="hljs-keyword">this</span>.props.content)
   }
 })
 
@@ -475,7 +475,7 @@ least more two discrete components. Let’s take a stab at creating those now:</
     <span class="hljs-keyword">return</span> React.createElement(Note, { <span class="hljs-attr">key</span>: note.id, <span class="hljs-attr">content</span>: note.content })
   },
   render() {
-    <span class="hljs-keyword">return</span> React.createElement(<span class="hljs-string">'ul'</span>, {}, <span class="hljs-keyword">this</span>.props.notes.map(<span class="hljs-keyword">this</span>.renderNote))
+    <span class="hljs-keyword">return</span> React.createElement(<span class="hljs-string">"ul"</span>, {}, <span class="hljs-keyword">this</span>.props.notes.map(<span class="hljs-keyword">this</span>.renderNote))
   }
 })
 
@@ -484,9 +484,9 @@ least more two discrete components. Let’s take a stab at creating those now:</
     <span class="hljs-keyword">var</span> notes = <span class="hljs-keyword">this</span>.props.notes
 
     <span class="hljs-keyword">return</span> React.createElement(
-      <span class="hljs-string">'section'</span>,
+      <span class="hljs-string">"section"</span>,
       {},
-      React.createElement(<span class="hljs-string">'h1'</span>, {}, <span class="hljs-string">'You have '</span>, notes.length, <span class="hljs-string">' notes'</span>),
+      React.createElement(<span class="hljs-string">"h1"</span>, {}, <span class="hljs-string">"You have "</span>, notes.length, <span class="hljs-string">" notes"</span>),
       React.createElement(NotesList, { <span class="hljs-attr">notes</span>: notes })
     )
   }
@@ -494,7 +494,7 @@ least more two discrete components. Let’s take a stab at creating those now:</
 
 ReactDOM.render(
   React.createElement(App, { <span class="hljs-attr">notes</span>: notes }),
-  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'entry-point'</span>)
+  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"entry-point"</span>)
 )
 </code></pre>
 <p>Here we’ve created <code>App</code>, <code>NotesList</code> and <code>Note</code> components. Instead of

@@ -310,9 +310,9 @@ table th {
   font-weight: bold;
 }
 </style><h1 id="introducing-react">Introducing React</h1>
-<p>Before we dive into React Native, we need to lay down a foundation with React
-itself. Over the course of the next few lessons, we’ll walk through the
-following:</p>
+<p>This workshop is about React Native, that means we first need to establish a
+foundation with React. Over the course of the next few lessons, we’ll walk
+through the following:</p>
 <ol>
 <li>React Elements and Components</li>
 <li>Props and State</li>
@@ -377,7 +377,7 @@ much (if at all) with the DOM using React.</p>
 <h2 id="react-elements">React Elements</h2>
 <p>The most primitive data type in React is the <em>element</em>. They are analogous to
 DOM elements, even created similarly:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> hello = React.createElement(<span class="hljs-string">'p'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'Hello, World!'</span>)
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> hello = React.createElement(<span class="hljs-string">"p"</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">"Hello, World!"</span>)
 </code></pre>
 <p>React elements are chunks of data that describe how to build a user interface.
 Think of them as low level instructions; the assembly of React.</p>
@@ -390,10 +390,10 @@ is a string, React will automatically build a text node to represent it.</p>
 <p>In order to actually view this element, we need to <em>render</em> it.
 <code>ReactDOM.render</code> is the function responsible for turning the React elements
 into actual HTML:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> hello = React.createElement(<span class="hljs-string">'p'</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">'Hello, World!'</span>)
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> hello = React.createElement(<span class="hljs-string">"p"</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">"Hello, World!"</span>)
 
 <span class="hljs-comment">// Checkout what this does by opening your HTML file in the browser</span>
-ReactDOM.render(hello, <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'entry-point'</span>))
+ReactDOM.render(hello, <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"entry-point"</span>))
 </code></pre>
 <h2 id="what-s-happening-">What’s happening?</h2>
 <p>Let’s look at the signature of <code>React.createElement</code> from the

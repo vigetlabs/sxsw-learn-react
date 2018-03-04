@@ -9,6 +9,8 @@
 # Environment defaults
 include ./.env
 
+all: docs
+
 help:
 	@ echo
 	@ echo "  ${GREEN}start${RESET} – host a local web server."
@@ -23,6 +25,7 @@ start:
 docs: $(patsubst %.md,%.html,$(wildcard lessons/**/README.md) README.md)
 
 %.html: %.md
+	@ node_modules/.bin/prettier --write $<
 	@ echo "<meta charset='utf-8'>" > $(@D)/index.html
 	@ cat $^ | node ./node_modules/@hunzaker/markdown >> $(@D)/index.html
 	@ echo "${PLUS} $(@D)/index.html"
