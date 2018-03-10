@@ -13,41 +13,43 @@
     <script src="lib/babel.js"></script>
 
     <script type="text/babel">
-      var notes = [
+      let notes = [
         { id: 1, content: 'Learn React' },
         { id: 2, content: 'Get Lunch' },
         { id: 3, content: 'Learn React Native' }
       ]
 
-      var Note = React.createClass({
+      class Note extends React.Component {
         render() {
-          return <li>{ this.props.content }</li>
+          return <li>{this.props.content}</li>
         }
-      })
+      }
 
-      var NotesList = React.createClass({
+      class NotesList extends React.Component {
         renderNote(note) {
-          return <Note key={ note.id } content={ note.content } />
-        },
-        render() {
-          return <ul>{ this.props.notes.map(this.renderNote) }</ul>
+          return <Note key={note.id} content={note.content} />
         }
-      })
-
-      var App = React.createClass({
         render() {
-          var notes = this.props.notes
+          let { notes } = this.props
+
+          return <ul>{notes.map(this.renderNote, this)}</ul>
+        }
+      }
+
+      class App extends React.Component {
+        render() {
+          let { notes } = this.props
 
           return (
             <section>
-              <h1>You have { notes.length } notes</h1>
-              <NotesList notes={ notes } />
+              <h1>You have {notes.length}</h1>
+              <NotesList notes={notes} />
             </section>
           )
         }
-      })
+      }
 
-      ReactDOM.render(<App notes={ notes } />, document.getElementById('entry-point'))
+      ReactDOM.render(<App notes={notes} />, document.getElementById('entry-point'))
     </script>
   </body>
 </html>

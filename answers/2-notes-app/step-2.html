@@ -11,18 +11,18 @@
     <script src="lib/react.js"></script>
     <script src="lib/react-dom.js"></script>
 
-    <script type="text/javascript">
-      var notes = [
+    <script>
+      let notes = [
         { id: 1, content: 'Learn React' },
         { id: 2, content: 'Get Lunch' },
         { id: 3, content: 'Learn React Native' }
       ]
 
-      var notesListItems = notes.map(function (note) {
+      let notesListItems = notes.map(function (note) {
         return React.createElement('li', { key: note.id }, note.content)
       })
 
-      var notesList = React.createElement('section', {},
+      let notesList = React.createElement('section', {},
         React.createElement('h1', {}, 'You have ', notes.length, ' notes'),
         React.createElement('ul', {}, notesListItems)
       )

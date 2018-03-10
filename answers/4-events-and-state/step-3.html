@@ -13,59 +13,76 @@
     <script src="lib/babel.js"></script>
 
     <script type="text/babel">
-      var Note = React.createClass({
-        render: function () {
-          return <li>{ this.props.content }</li>
-        }
-      })
+      let notes = [
+        { id: 1, content: 'Learn React' },
+        { id: 2, content: 'Get Lunch' },
+        { id: 3, content: 'Learn React Native' }
+      ]
 
-      var NotesList = React.createClass({
-        renderNote: function (note) {
-          return <Note key={ note.id } content={ note.content } />
-        },
-        render: function () {
-          return <ul>{ this.props.notes.map(this.renderNote) }</ul>
+      class Note extends React.Component {
+        render() {
+          return <li>{this.props.content}</li>
         }
-      })
+      }
 
-      var NotesForm = React.createClass({
-        render: function () {
+      class NotesList extends React.Component {
+        renderNote(note) {
+          return <Note key={note.id} content={note.content} />
+        }
+        render() {
+          let { notes } = this.props
+
+          return <ul>{notes.map(this.renderNote, this)}</ul>
+        }
+      }
+
+      class NotesForm extends React.Component {
+        render() {
           return (
-            <form ref="form" onSubmit={ this.handleSubmission }>
-              <input type="text" ref="content" />
+            <form
+              ref={el => (this.form = el)}
+              onSubmit={this.handleSubmission.bind(this)}
+            >
+              <input type="text" name="content" />
               <input type="submit" value="Add Note" />
             </form>
           )
-        },
-
-        handleSubmission: function (event) {
-          event.preventDefault()
-          this.props.onSubmit(this.refs.content.value)
-          this.refs.form.reset()
         }
-      })
 
-      var App = React.createClass({
-        getInitialState() {
-          return {
+        handleSubmission(event) {
+          event.preventDefault()
+          this.props.onSubmit(this.form.elements.content.value)
+          this.form.reset()
+        }
+      }
+
+      class App extends React.Component {
+        constructor(props, context) {
+          super(props, context)
+
+          this.state = {
             notes: [
               { id: 1, content: 'Learn React' },
               { id: 2, content: 'Get Lunch' },
               { id: 3, content: 'Learn React Native' }
             ]
           }
-        },
-        render: function () {
+        }
+
+        render() {
+          let { notes } = this.state
+
           return (
             <section>
-              <h1>You have { this.state.notes.length } notes</h1>
-              <NotesList notes={ this.state.notes } />
-              <NotesForm onSubmit={ this.formWasSubmitted } />
+              <h1>You have {notes.length} notes</h1>
+              <NotesList notes={notes} />
+              <NotesForm onSubmit={this.formWasSubmitted.bind(this)} />
             </section>
           )
-        },
-        formWasSubmitted: function (content) {
-          var note = {
+        }
+
+        formWasSubmitted(content) {
+          let note = {
             id: Date.now().toString(), // cheap trick for unique ids, don't do this in production!
             content: content
           }
@@ -74,9 +91,12 @@
             notes: this.state.notes.concat(note)
           })
         }
-      })
+      }
 
-      ReactDOM.render(<App />, document.getElementById('entry-point'))
+      ReactDOM.render(
+        <App notes={notes} />,
+        document.getElementById('entry-point')
+      )
     </script>
   </body>
 </html>

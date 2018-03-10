@@ -69,6 +69,8 @@ We can also visualize it graphically. Let's give it a shot:
 </html>
 ```
 
+Here, we're using a new type of component: a _stateless functional component_. In addition to being classes, React components can also be defined as functions. This is great for components that do not manage their own state, and can be a concise way to describe simple, stateless components.
+
 ## You did it!
 
 Thanks for walking through our introduction to React! Now it's time for the main event: React Native.

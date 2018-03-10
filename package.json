@@ -2,7 +2,7 @@
   "name": "learning-react",
   "private": true,
   "scripts": {
-    "format": "prettier --write './lessons/*/**.{js,css,md}'"
+    "format": "prettier --write './lessons/*.{js,css,md}'"
   },
   "dependencies": {
     "@hunzaker/markdown": "^1.1.2",

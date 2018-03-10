@@ -16,23 +16,14 @@ We'll work with the same HTML structure as last time:
   <body>
     <div id="entry-point"></div>
 
-    <!-- Wifi might be spotty, so we've downloaded these to `./lib` -->
     <script src="lib/react.js"></script>
     <script src="lib/react-dom.js"></script>
-
-    <!-- Alternatively: -->
-    <!--<script src="https://fb.me/react-0.14.7.min.js"
-                integrity="sha384-zTm/dblzLXQNp3CgY+hfaC/WJ6h4XtNrePh2CW2+rO9GPuNiPb9jmthvAL+oI/dQ"
-                crossorigin="anonymous"></script> -->
-    <!--<script src="https://fb.me/react-dom-0.14.7.min.js"
-                integrity="sha384-ntqCsHbLdMxT352UbhPbT7fqjE8xi4jLmQYQa8mYR+ylAapbXRfdsDweueDObf7m"
-                crossorigin="anonymous"></script> -->
 
     <script>
       console.log('Hello world!')
     </script>
   </body>
- </html>
+</html>
 ```
 
 Open this file in a browser and open the console tab of the browser inspector.
@@ -68,7 +59,7 @@ At the bottom of the page, replace `console.log("Hello world")` with the
 following:
 
 ```javascript
-var notesList = React.createElement(
+let notesList = React.createElement(
   "section",
   {},
   React.createElement("h1", {}, "You have 3 notes"),
@@ -84,7 +75,7 @@ var notesList = React.createElement(
 ReactDOM.render(notesList, document.getElementById("entry-point"))
 ```
 
-It's okay to feel like this is gross. It _is_ gross. In the future we'll explore
+It's okay to feel like this is gross. It *is* gross. In the future we'll explore
 ways to make everything look cleaner. But for now, it's important to expose the
 underlying mechanics.
 
@@ -106,17 +97,17 @@ provides a way to a describe user interfaces as tree of elements.
 items - so why not keep track of the notes as a list, and enumerate over them?
 
 ```javascript
-var notes = [
+let notes = [
   { id: 1, content: "Learn React" },
   { id: 2, content: "Get Lunch" },
   { id: 3, content: "Learn React Native" }
 ]
 
-var notesListItems = notes.map(function(message) {
+let notesListItems = notes.map(function(message) {
   return React.createElement("li", { key: message.id }, message.content)
 })
 
-var notesList = React.createElement(
+let notesList = React.createElement(
   "section",
   {},
   React.createElement("h1", {}, "You have ", notes.length, " reminders"),
@@ -141,14 +132,14 @@ components.
 
 ## Creating Components
 
-`React.createClass` allows you to make React components. Think of these like
-custom HTML elements. When you create a component, The only requirement is that
-you tell it how to render:
+Extending the a React `Component` class allows you to make custom
+React components. When you create a component, The only requirement is
+that you tell it how to render:
 
 ```javascript
 // For illustrative purposes only, don't replace existing code
-var Workshop = React.createClass({
-  render: function() {
+class Workshop extends React.Component {
+  render() {
     return React.createElement(
       "<section>",
       {},
@@ -179,30 +170,32 @@ least more two discrete components. Let's take a stab at creating those now:
 
 ```javascript
 // Step 3
-var notes = [
+let notes = [
   { id: 1, content: "Learn React" },
   { id: 2, content: "Get Lunch" },
   { id: 3, content: "Learn React Native" }
 ]
 
-var Note = React.createClass({
+class Note extends React.Component {
   render() {
     return React.createElement("li", {}, this.props.content)
   }
-})
+}
 
-var NotesList = React.createClass({
+class NotesList extends React.Component {
   renderNote(note) {
     return React.createElement(Note, { key: note.id, content: note.content })
-  },
-  render() {
-    return React.createElement("ul", {}, this.props.notes.map(this.renderNote))
   }
-})
-
-var App = React.createClass({
   render() {
-    var notes = this.props.notes
+    let { notes } = this.props
+
+    return React.createElement("ul", {}, notes.map(this.renderNote, this))
+  }
+}
+
+class App extends React.Component {
+  render() {
+    let { notes } = notes
 
     return React.createElement(
       "section",
@@ -211,7 +204,7 @@ var App = React.createClass({
       React.createElement(NotesList, { notes: notes })
     )
   }
-})
+}
 
 ReactDOM.render(
   React.createElement(App, { notes: notes }),

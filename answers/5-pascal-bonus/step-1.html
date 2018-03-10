@@ -23,10 +23,10 @@
         }
 
         return (
-          <g transform={ transform }>
-            <Cluster depth={ depth - 1 } transform="matrix(0.5 0 0 0.5  0  0)" />
-            <Cluster depth={ depth - 1 } transform="matrix(0.5 0 0 0.5  1  0)" />
-            <Cluster depth={ depth - 1 } transform="matrix(0.5 0 0 0.5 0.5 0.866)" />
+          <g transform={transform}>
+            <Cluster depth={depth - 1} transform="matrix(0.5 0 0 0.5  0  0)" />
+            <Cluster depth={depth - 1} transform="matrix(0.5 0 0 0.5  1  0)" />
+            <Cluster depth={depth - 1} transform="matrix(0.5 0 0 0.5 0.5 0.866)" />
           </g>
         )
       }
@@ -37,13 +37,13 @@
         let scale = Math.min(x, y)
 
         return (
-          <svg width={ width } height={ height } style={{ color: "red" }}>
-            <Cluster transform={ `scale(${ scale })` } depth={ depth } fill={ fill } />
+          <svg width={width} height={height} style={{ color: "red" }}>
+            <Cluster transform={ `scale(${ scale })` } depth={depth} fill={fill} />
           </svg>
         )
       }
 
-      ReactDOM.render(<Pascal depth={ 9 } />, document.getElementById('entry-point'))
+      ReactDOM.render(<Pascal depth={9} />, document.getElementById('entry-point'))
     </script>
   </body>
 </html>

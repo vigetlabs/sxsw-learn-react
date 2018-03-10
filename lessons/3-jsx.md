@@ -7,30 +7,31 @@ In the last lesson, we made a simple React Component tree that rendered a list
 of information:
 
 ```javascript
-var notes = [
+let notes = [
   { id: 1, content: "Learn React" },
   { id: 2, content: "Get Lunch" },
   { id: 3, content: "Learn React Native" }
 ]
 
-var Note = React.createClass({
+class Note extends React.Component {
   render() {
     return React.createElement("li", {}, this.props.content)
   }
-})
+}
 
-var NotesList = React.createClass({
+class NotesList extends React.Component {
   renderNote(note) {
     return React.createElement(Note, { key: note.id, content: note.content })
-  },
-  render() {
-    return React.createElement("ul", {}, this.props.notes.map(this.renderNote))
   }
-})
-
-var App = React.createClass({
   render() {
-    var notes = this.props.notes
+    let { notes } = this.props
+    return React.createElement("ul", {}, notes.map(this.renderNote, this))
+  }
+}
+
+class App extends React.Component {
+  render() {
+    let { notes } = notes
 
     return React.createElement(
       "section",
@@ -39,7 +40,7 @@ var App = React.createClass({
       React.createElement(NotesList, { notes: notes })
     )
   }
-})
+}
 
 ReactDOM.render(
   React.createElement(App, { notes: notes }),
@@ -72,9 +73,9 @@ use is called [Babel](https://babeljs.io)
 Babel originated as a way to compile new JavaScript language features down into
 older forms of code that every browser can. It also includes a JSX processor.
 
-Normally Babel requires some command line usage or integration with a build tool
-such as Make, Gulp, or Grunt. Fortunately, the project also maintains a version
-that can perform code transformation in the browser; perfect for our use case.
+Normally Babel requires some command line usage or integration with a
+tool like Webpack. Fortunately, the project also maintains a version
+that works in the browser.
 
 Returning to the HTML document created in the last example, let's the browser
 version of Babel to our page:
@@ -84,9 +85,6 @@ version of Babel to our page:
 <script src="lib/react.js"></script>
 <script src="lib/react-dom.js"></script>
 <script src="lib/babel.js"></script>
-
-<!-- Alternatively: -->
-<-- <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.js"></script> -->
 ...
 ```
 
@@ -105,30 +103,32 @@ Okay! Now let's put it to use, replacing all calls to `React.createElement` with
 their JSX counterparts:
 
 ```javascript
-var notes = [
+let notes = [
   { id: 1, content: "Learn React" },
   { id: 2, content: "Get Lunch" },
   { id: 3, content: "Learn React Native" }
 ]
 
-var Note = React.createClass({
+class Note extends React.Component {
   render() {
     return <li>{this.props.content}</li>
   }
-})
+}
 
-var NotesList = React.createClass({
+class NotesList extends React.Component {
   renderNote(note) {
     return <Note key={note.id} content={note.content} />
-  },
-  render() {
-    return <ul>{this.props.notes.map(this.renderNote)}</ul>
   }
-})
-
-var App = React.createClass({
   render() {
-    var notes = this.props.notes
+    let { notes } = this.props
+
+    return <ul>{notes.map(this.renderNote, this)}</ul>
+  }
+}
+
+class App extends React.Component {
+  render() {
+    let { notes } = this.props
 
     return (
       <section>
@@ -137,7 +137,7 @@ var App = React.createClass({
       </section>
     )
   }
-})
+}
 
 ReactDOM.render(<App notes={notes} />, document.getElementById("entry-point"))
 ```
@@ -172,4 +172,4 @@ state management.
 
 ---
 
-[Lesson 4](../3-events-and-state/index.html)
+[Lesson 4](./4-events-and-state.html)
