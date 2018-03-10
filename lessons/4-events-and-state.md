@@ -307,7 +307,7 @@ class Note extends React.Component {
 }
 ```
 
-That's it! Whenever the button is clicked, the `Note` component will handle the
+Whenever the button is clicked, the `Note` component will handle the
 specific implementation details of responding to the user's interaction, then
 communicate the important information via the `onDelete` callback function.
 
@@ -354,7 +354,7 @@ class NotesForm extends React.Component {
     super(props, context)
 
     this.state = {
-      content: ''
+      content: ""
     }
   }
 
@@ -363,7 +363,11 @@ class NotesForm extends React.Component {
 
     return (
       <form onSubmit={this.handleSubmission.bind(this)}>
-        <input name="content" value={content} onChange={this.setContent.bind(this)}/>
+        <input
+          name="content"
+          value={content}
+          onChange={this.setContent.bind(this)}
+        />
         <button>Add Note</button>
       </form>
     )
@@ -376,16 +380,16 @@ class NotesForm extends React.Component {
   handleSubmission(event) {
     event.preventDefault()
     this.props.onSubmit(this.state.content)
-    this.setState({ content: '' })
+    this.setState({ content: "" })
   }
 }
 ```
 
 Now, when a user types input, the following sequence of events will occur:
 
-1. The `setContent` change event fires, assigning a `content` state
-2. This alerts the `NoteForm` to render again, passing in the new state
-3. React updates the input with the new value. In most cases, it sees that the value hasn't changed from what the user typed and does nothing.
+1.  The `setContent` change event fires, assigning a `content` state
+2.  This alerts the `NoteForm` to render again, passing in the new state
+3.  React updates the input with the new value. In most cases, it sees that the value hasn't changed from what the user typed and does nothing.
 
 Then, when the form submits, all we have to do is pass along `content` and reset the value using `setState`. No need to store truth in the DOM at all!
 
