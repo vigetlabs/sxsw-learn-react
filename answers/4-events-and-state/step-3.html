@@ -44,7 +44,7 @@
               onSubmit={this.handleSubmission.bind(this)}
             >
               <input type="text" name="content" />
-              <input type="submit" value="Add Note" />
+              <button>Add Note</button>
             </form>
           )
         }
@@ -62,9 +62,9 @@
 
           this.state = {
             notes: [
-              { id: 1, content: 'Learn React' },
-              { id: 2, content: 'Get Lunch' },
-              { id: 3, content: 'Learn React Native' }
+              { id: 1, content: "Learn React" },
+              { id: 2, content: "Get Lunch" },
+              { id: 3, content: "Learn React Native" }
             ]
           }
         }
@@ -74,7 +74,7 @@
 
           return (
             <section>
-              <h1>You have {notes.length} notes</h1>
+              <h1>You have {notes.length}</h1>
               <NotesList notes={notes} />
               <NotesForm onSubmit={this.formWasSubmitted.bind(this)} />
             </section>
@@ -82,14 +82,7 @@
         }
 
         formWasSubmitted(content) {
-          let note = {
-            id: Date.now().toString(), // cheap trick for unique ids, don't do this in production!
-            content: content
-          }
-
-          this.setState({
-            notes: this.state.notes.concat(note)
-          })
+          alert("New note: " + content)
         }
       }
 

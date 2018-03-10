@@ -31,7 +31,8 @@ public/%.html: lessons/%.md
 	@ echo "${PLUS} $@"
 
 starter-kit:
-	@ cd public; zip -q starter-kit{.zip,}
+	@ rm -f public/starter-kit.zip
+	@ cd public; zip -qr starter-kit{.zip,}
 	@ echo "${PLUS} $@.zip"
 
 clean:

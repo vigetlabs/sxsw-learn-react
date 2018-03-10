@@ -75,7 +75,7 @@ let notesList = React.createElement(
 ReactDOM.render(notesList, document.getElementById("entry-point"))
 ```
 
-It's okay to feel like this is gross. It *is* gross. In the future we'll explore
+It's okay to feel like this is gross. It _is_ gross. In the future we'll explore
 ways to make everything look cleaner. But for now, it's important to expose the
 underlying mechanics.
 

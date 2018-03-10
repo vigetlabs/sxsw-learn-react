@@ -83,7 +83,7 @@ class NotesForm extends React.Component {
         ref={el => (this.form = el)}
         onSubmit={this.handleSubmission.bind(this)}
       >
-        <input type="text" name="content" />
+        <input name="content" />
         <button>Add Note</button>
       </form>
     )
@@ -342,12 +342,57 @@ entry.querySelector("button").click()
 **Clear inputs and outputs** make React components both easy to reason about and
 easy to test.
 
+## An alternative way to manage form state
+
+In this lesson, our form component, `NotesForm` manages an _uncontrolled input_. All of the state of the form input lived within the DOM. To extract that state, we have to pull information out of the DOM.
+
+Although it has less moving parts, this keeps state out of React. Alternatively, we could create a _controlled input_. Let's go back to `NotesForm` and make some changes:
+
+```javascript
+class NotesForm extends React.Component {
+  constructor(props, context) {
+    super(props, context)
+
+    this.state = {
+      content: ''
+    }
+  }
+
+  render() {
+    let { content } = this.state
+
+    return (
+      <form onSubmit={this.handleSubmission.bind(this)}>
+        <input name="content" value={content} onChange={this.setContent.bind(this)}/>
+        <button>Add Note</button>
+      </form>
+    )
+  }
+
+  setContent(event) {
+    this.setState({ content: event.target.value })
+  }
+
+  handleSubmission(event) {
+    event.preventDefault()
+    this.props.onSubmit(this.state.content)
+    this.setState({ content: '' })
+  }
+}
+```
+
+Now, when a user types input, the following sequence of events will occur:
+
+1. The `setContent` change event fires, assigning a `content` state
+2. This alerts the `NoteForm` to render again, passing in the new state
+3. React updates the input with the new value. In most cases, it sees that the value hasn't changed from what the user typed and does nothing.
+
+Then, when the form submits, all we have to do is pass along `content` and reset the value using `setState`. No need to store truth in the DOM at all!
+
 ## Wrapping up
 
 In this lesson, we learned about props and state, the React synthetic event
-system, and fleshed out more of our application. We touched briefly on
-`getInitialState`, which is a function that runs whenever a component is first
-created.
+system, and fleshed out more of our application.
 
 That's it! If we have extra time, or you have additionally curiosity, checkout
 lesson 4, where we explore some new language features in JavaScript and
